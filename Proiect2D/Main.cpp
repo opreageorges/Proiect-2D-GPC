@@ -11,6 +11,13 @@ GLdouble right_m = 700.0;
 GLdouble bottom_m = -140.0;
 GLdouble top_m = 460.0;
 
+// Numarul maxim de framuri pe secunda
+int fps = 30;
+
+// Pentru calculul de fps 
+int initial_time = time(NULL);
+int frames = 0;
+
 // daca e 1 jocul merge daca e 0 ai pierdut
 double ok;
 
@@ -57,7 +64,7 @@ void initGame() {
 }
 
 // Functie care se ocupa de logica jocului in timp ce e activ
-void startgame(void)
+void game()
 {
 
 	if ((* inamic).get_y() == juc.get_y() && ((*inamic).get_x() < juc.get_x() + 90 && (*inamic).get_x() > juc.get_x() - 90)) {
@@ -65,7 +72,7 @@ void startgame(void)
 		return;
 	}
 
-	(*inamic).misca(0.1);
+	(*inamic).misca(10);
 
 	if ((*inamic).get_x() < -150)
 	{
@@ -73,9 +80,8 @@ void startgame(void)
 		delete inamic;
 		inamic = new Inamic();
 	}
-
-	glutPostRedisplay();
 	
+	//glutPostRedisplay();
 }
 
 // Scrie scorul pe ecran
@@ -167,14 +173,23 @@ void drawScene(void)
 
 	juc.draw();
 	(*inamic).draw();
-	
-	if (!paused && ok == 1) {
-		startgame();
-	}
-	glutPostRedisplay();
+
+	//if (!paused && ok == 1) {
+	//	game();
+	//}
+
+
 	glutSwapBuffers();
 	glFlush();
 
+	// Calculeaza fps-ul
+	frames++;
+	int final_time = time(NULL);
+	if (final_time - initial_time == 1) {
+		std::cout << frames << std::endl;
+		initial_time = final_time;
+		frames = 0;
+	}
 
 }
 
@@ -214,6 +229,15 @@ void normalKeyboard(unsigned char key, int x, int y)
 	}
 }
 
+// Functia care updateaza logica jocului
+void update(int) {
+	if (!paused && ok == 1) {
+		game();
+	}
+	glutPostRedisplay();
+	glutTimerFunc(1000/fps, update, 0);
+}
+
 int main(int argc, char** argv)
 {
 	glutInit(&argc, argv);
@@ -224,9 +248,13 @@ int main(int argc, char** argv)
 	init();
 	initGame();
 	glutDisplayFunc(drawScene);
+
+	glutTimerFunc(1000 / fps, update, 0);
+
 	glutKeyboardFunc(normalKeyboard);
 	glutSpecialFunc(keyboard);
 
+	
 	glutMainLoop();
 
 }
