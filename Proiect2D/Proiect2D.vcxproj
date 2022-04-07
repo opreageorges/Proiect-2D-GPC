@@ -149,7 +149,13 @@
     <None Include="glew32.dll" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Inamic.cpp" />
+    <ClCompile Include="Jucator.cpp" />
     <ClCompile Include="Main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Inamic.h" />
+    <ClInclude Include="Jucator.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
