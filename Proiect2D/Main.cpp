@@ -3,7 +3,7 @@
 #include <iostream>
 #include "Jucator.h"
 #include "Inamic.h"
-
+#include <string>
 
 // Marimea zonei de joc
 GLdouble left_m = -100.0;
@@ -15,7 +15,7 @@ GLdouble top_m = 460.0;
 int fps = 30;
 
 // Pentru calculul de fps 
-int initial_time = time(NULL);
+int initial_time = (int)time(NULL);
 int frames = 0;
 
 // daca e 1 jocul merge daca e 0 ai pierdut
@@ -37,18 +37,20 @@ bool paused;
 // Functia de initializare a ferestrei
 void init(void)
 {
-	glClearColor(0.98, 0.929, 0.792, 0.0);
+	glClearColor(0.98f, 0.929f, 0.792f, 0.0f);
 	glMatrixMode(GL_PROJECTION);
 	glOrtho(left_m, right_m, bottom_m, top_m, -1.0, 1.0);
 }
 
 // Scrie un text pe ecran (pentru Game Over)
-void RenderString(float x, float y, void* font, const unsigned char* string)
-{
+void RenderString(float x, float y, void* font, const std::string sir)
+{	
+	int lungime = sir.length();
+	const unsigned char *caster = (const unsigned char*)sir.c_str();;
 
 	glColor3f(0.0f, 0.0f, 0.0f);
 	glRasterPos2f(x, y);
-	glutBitmapString(font, string);
+	glutBitmapString(font, (const unsigned char*)caster);
 }
 
 // Initializeaza toate variabilele de la inceputul jocului (Util pentru restart)
@@ -80,35 +82,11 @@ void game()
 		delete inamic;
 		inamic = new Inamic();
 	}
-	
-	//glutPostRedisplay();
-}
-
-// Scrie scorul pe ecran
-void scoredisplay(int posx, int posy, int space_char, int scorevar)
-{
-	int j = 0, p, k;
-	GLvoid* font_style1 = GLUT_BITMAP_TIMES_ROMAN_24;
-
-	p = scorevar;
-	j = 0;
-	k = 0;
-	while (p > 9)
-	{
-		k = p % 10;
-		glRasterPos2f((posx - (j * space_char)), posy);
-		glutBitmapCharacter(font_style1, 48 + k);
-		j++;
-		p /= 10;
-	}
-	glRasterPos2f((posx - (j * space_char)), posy);
-	glutBitmapCharacter(font_style1, 48 + p);
-
 }
 
 // Functia care deseneaza imaginea de fundal
 void drawBackground() {
-	glColor3f(0.55, 0.788, 0.451);
+	glColor3f(0.55f, 0.788f, 0.451f);
 
 	// Iarba de jos
 	glBegin(GL_POLYGON);
@@ -125,8 +103,7 @@ void drawBackground() {
 	glVertex2i(700, 460); // Dreapta sus
 	glVertex2i(-100, 460);// Stanga sus
 	glEnd();
-	RenderString(200.0f, 425.0f, GLUT_BITMAP_TIMES_ROMAN_24, (const unsigned char*)"Depaseste masinile! Scor :");
-	scoredisplay(525.0f, 425.0f, 15, score);
+	RenderString(100.0f, 425.0f, GLUT_BITMAP_TIMES_ROMAN_24, std::string("Depaseste masinile!     Scor: ") + std::to_string(score));
 
 	// Delimitare sosea
 	glLineWidth(3);
@@ -168,23 +145,18 @@ void drawScene(void)
 	
 
 	if (ok == 0) {
-		RenderString(250.0f, 200.0f, GLUT_BITMAP_8_BY_13, (const unsigned char*)"GAME OVER");
+		RenderString(250.0f, 200.0f, GLUT_BITMAP_8_BY_13, std::string("GAME OVER"));
 	}
 
 	juc.draw();
 	(*inamic).draw();
-
-	//if (!paused && ok == 1) {
-	//	game();
-	//}
-
 
 	glutSwapBuffers();
 	glFlush();
 
 	// Calculeaza fps-ul
 	frames++;
-	int final_time = time(NULL);
+	int final_time = (int)time(NULL);
 	if (final_time - initial_time == 1) {
 		std::cout << frames << std::endl;
 		initial_time = final_time;
