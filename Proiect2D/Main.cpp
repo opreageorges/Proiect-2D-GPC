@@ -42,7 +42,7 @@ void init(void)
 	glOrtho(left_m, right_m, bottom_m, top_m, -1.0, 1.0);
 }
 
-// Scrie un text pe ecran (pentru Game Over)
+// Scrie un text pe ecran
 void RenderString(float x, float y, void* font, const std::string sir)
 {	
 	int lungime = sir.length();
