@@ -4,8 +4,6 @@
 #include "Jucator.h"
 #include "Inamic.h"
 
-using namespace std;
-
 
 // Marimea zonei de joc
 GLdouble left_m = -100.0;
@@ -13,16 +11,14 @@ GLdouble right_m = 700.0;
 GLdouble bottom_m = -140.0;
 GLdouble top_m = 460.0;
 
-int argc_bu;
-char** argv_bu;
-
 // daca e 1 jocul merge daca e 0 ai pierdut
 double ok;
 
+// Initializeaza jucatorul si inamicul
 Jucator juc;
-
 Inamic* inamic;
 
+// Scorul jucatorului
 int score;
 
 // Nr de puncte la care se mareste dificultatea
@@ -31,6 +27,7 @@ int pct = 1000;
 // Jocul este in pauza
 bool paused;
 
+// Functia de initializare a ferestrei
 void init(void)
 {
 	glClearColor(0.98, 0.929, 0.792, 0.0);
@@ -38,6 +35,7 @@ void init(void)
 	glOrtho(left_m, right_m, bottom_m, top_m, -1.0, 1.0);
 }
 
+// Scrie un text pe ecran (pentru Game Over)
 void RenderString(float x, float y, void* font, const unsigned char* string)
 {
 
@@ -46,6 +44,7 @@ void RenderString(float x, float y, void* font, const unsigned char* string)
 	glutBitmapString(font, string);
 }
 
+// Initializeaza toate variabilele de la inceputul jocului (Util pentru restart)
 void initGame() {
 	score = 0;
 
@@ -57,6 +56,7 @@ void initGame() {
 	paused = FALSE;
 }
 
+// Functie care se ocupa de logica jocului in timp ce e activ
 void startgame(void)
 {
 
@@ -70,7 +70,6 @@ void startgame(void)
 	if ((*inamic).get_x() < -150)
 	{
 		score += (*inamic).getPuncte();
-		cout << "Score:  " << score << endl;
 		delete inamic;
 		inamic = new Inamic();
 	}
@@ -79,7 +78,7 @@ void startgame(void)
 	
 }
 
-
+// Scrie scorul pe ecran
 void scoredisplay(int posx, int posy, int space_char, int scorevar)
 {
 	int j = 0, p, k;
@@ -101,6 +100,7 @@ void scoredisplay(int posx, int posy, int space_char, int scorevar)
 
 }
 
+// Functia care deseneaza imaginea de fundal
 void drawBackground() {
 	glColor3f(0.55, 0.788, 0.451);
 
@@ -153,6 +153,7 @@ void drawBackground() {
 	glPopMatrix();
 }
 
+// Functia care deseneaza tot
 void drawScene(void)
 {
 	glClear(GL_COLOR_BUFFER_BIT);
@@ -177,24 +178,7 @@ void drawScene(void)
 
 }
 
-void reshape(int w, int h)
-{
-	glViewport(0, 0, (GLsizei)w, (GLsizei)h);
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	glOrtho(-100.0, 700.0, -140.0, 460.0, -1.0, 1.0);
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-}
-
-void pauseGame(void) {
-
-	if (ok != 0)
-	{
-		paused = !paused;
-	}
-}
-
+// Functia care se ocupa de tastele speciale
 void keyboard(int key, int x, int y)
 {
 	if (paused || ok == 0) {
@@ -217,11 +201,12 @@ void keyboard(int key, int x, int y)
 
 }
 
+// Functia care se ocupa de tastele normale
 void normalKeyboard(unsigned char key, int x, int y)
 {
 	switch (key) {
 	case ' ':
-		pauseGame();
+		paused = !paused;
 		break;
 	case 'r':
 		initGame();
@@ -239,7 +224,6 @@ int main(int argc, char** argv)
 	init();
 	initGame();
 	glutDisplayFunc(drawScene);
-	glutReshapeFunc(reshape);
 	glutKeyboardFunc(normalKeyboard);
 	glutSpecialFunc(keyboard);
 
