@@ -2,8 +2,12 @@
 #include <GL\freeglut.h>
 #include <iostream>
 #include "Jucator.h"
-#include "Inamic.h"
+#include "ColoanaOficiala.h"
 #include <string>
+#include "Masina.h"
+#include "Ambulanta.h"
+#include <algorithm>
+
 
 // Marimea zonei de joc
 GLdouble left_m = -100.0;
@@ -12,7 +16,7 @@ GLdouble bottom_m = -140.0;
 GLdouble top_m = 460.0;
 
 // Numarul maxim de framuri pe secunda
-int fps = 30;
+int fps = 60;
 
 // Pentru calculul de fps 
 int initial_time = (int)time(NULL);
@@ -42,6 +46,19 @@ void init(void)
 	glOrtho(left_m, right_m, bottom_m, top_m, -1.0, 1.0);
 }
 
+Inamic* genereazaInamic() {
+	int randomizator = rand() % 100;
+	if (randomizator < 75) {
+		return new Masina;
+	}
+	else if (randomizator < 90) {
+		return new Ambulanta;
+	}
+	else {
+		return new ColoanaOficiala;
+	}
+}
+
 // Scrie un text pe ecran
 void RenderString(float x, float y, void* font, const std::string sir)
 {	
@@ -58,8 +75,8 @@ void initGame() {
 	score = 0;
 
 	juc = Jucator();
-	inamic = new Inamic();
-
+	inamic = genereazaInamic();
+	
 	ok = 1;
 
 	paused = FALSE;
@@ -76,19 +93,19 @@ void initGameColiziune() {
 // Functie care se ocupa de logica jocului in timp ce e activ
 void game()
 {
-
-	if ((* inamic).get_y() == juc.get_y() && ((*inamic).get_x() < juc.get_x() + (*inamic).get_coliziune() && (*inamic).get_x() > juc.get_x() - (*inamic).get_coliziune())) {
+	std::vector<double> enemy_y = (*inamic).get_y();
+	if (std::count(enemy_y.begin(), enemy_y.end(), juc.get_y()) > 0 && ((*inamic).get_x() < juc.get_x() + (*inamic).get_coliziune() && (*inamic).get_x() > juc.get_x() - (*inamic).get_coliziune())) {
 		ok = 0;
 		return;
 	}
 
 	(*inamic).misca(10);
 
-	if ((*inamic).get_x() < -150)
+	if ((*inamic).get_x() < ((*inamic).getDestroyCoord()))
 	{
 		score += (*inamic).getPuncte();
 		delete inamic;
-		inamic = new Inamic();
+		inamic = genereazaInamic();
 	}
 }
 

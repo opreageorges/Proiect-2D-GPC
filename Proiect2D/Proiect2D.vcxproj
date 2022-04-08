@@ -149,13 +149,19 @@
     <None Include="glew32.dll" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ColoanaOficiala.cpp" />
     <ClCompile Include="Inamic.cpp" />
     <ClCompile Include="Jucator.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Masina.cpp" />
+    <ClCompile Include="Ambulanta.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ColoanaOficiala.h" />
     <ClInclude Include="Inamic.h" />
     <ClInclude Include="Jucator.h" />
+    <ClInclude Include="Masina.h" />
+    <ClInclude Include="Ambulanta.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

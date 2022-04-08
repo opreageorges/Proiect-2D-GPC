@@ -1,3 +1,5 @@
+#ifndef P2D_JUCATOR_H
+#define P2D_JUCATOR_H
 #include <GL\freeglut.h>
 
 class Jucator
@@ -22,3 +24,4 @@ public:
 	// Functia de desenare
 	void draw();
 };
+#endif

@@ -1,11 +1,16 @@
+#ifndef P2D_INAMIC_H
+#define P2D_INAMIC_H
 #include <iostream>
+#include <vector>
 #include <GL\freeglut.h>
 
 class Inamic
 {
-private:
+protected:
 	// Coordonatele inamicului
-	double x, y;
+	double x;
+	std::vector<double> y;
+	int destroyCoord;
 	int form, color;
 	int coliziune;
 
@@ -17,18 +22,20 @@ public:
 
 	// Functii pentru aflarea locatiei
 	double get_x();
-	double get_y();
+	std::vector<double> get_y();
 
 	// Returneaza nr de puncte pentru evitarea inamicului
 	int getPuncte();
 
 	int get_coliziune();
 
+	int getDestroyCoord();
+
 	// Functie de miscare
-	void misca(double);
+	void virtual misca(double) = 0;
 
 	// Functia de desenare
-	void draw();
+	void virtual draw() = 0;
 	
 };
-
+#endif

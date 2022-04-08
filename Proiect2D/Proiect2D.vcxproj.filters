@@ -32,12 +32,30 @@
     <ClCompile Include="Inamic.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ColoanaOficiala.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Masina.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Ambulanta.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Jucator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Inamic.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ColoanaOficiala.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Masina.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Ambulanta.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
