@@ -48,7 +48,7 @@ void init(void)
 
 Inamic* genereazaInamic() {
 	int randomizator = rand() % 100;
-	if (randomizator < 75) {
+	if (randomizator < 70) {
 		return new Masina;
 	}
 	else if (randomizator < 90) {

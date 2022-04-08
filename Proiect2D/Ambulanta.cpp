@@ -1,8 +1,8 @@
 #include "Ambulanta.h"
 Ambulanta::Ambulanta() {
-	coliziune = 10;
+	coliziune = 40;
 	puncte_generate = 150;
-	destroyCoord = -200;
+	destroyCoord = -250;
 }
 
 void Ambulanta::misca(double viteza) {
@@ -13,7 +13,7 @@ void Ambulanta::misca(double viteza) {
 void Ambulanta::draw() {
 	glPushMatrix();
 	// sasiu
-	glTranslated(x-40, y[0] - 40,0);
+	glTranslated(x-80, y[0] - 40,0);
 	glRotated(90, 0, 0, 1);
 
 	glColor3f(1, 0, 0);
