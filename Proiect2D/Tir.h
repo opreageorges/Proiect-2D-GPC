@@ -1,15 +1,14 @@
-#ifndef P2D_MASINA_CLASS
-#define P2D_MASINA_CLASS
+#ifndef P2D_TIR_H
+#define P2D_TIR_H
+
 #include "Inamic.h"
-
-
-class Masina :
+class Tir :
     public Inamic
 {
 private:
     float r, g, b;
 public:
-    Masina();
+    Tir();
 
     void misca(double);
     void draw();

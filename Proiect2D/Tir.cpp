@@ -1,23 +1,24 @@
-#include "Masina.h"
-Masina::Masina() {
-	destroyCoord = -150;
+#include "Tir.h"
 
-	coliziune = 100;
+Tir::Tir() {
+	x += 100;
+	destroyCoord = -200;
 	r = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
 	g = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
 	b = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
 }
 
-void Masina::misca(double viteza) {
-	x -= viteza;
+void Tir::misca(double viteza) {
+	x -= (viteza - 2);
 }
 
-void Masina::draw() {
+void Tir::draw() {
 	glPushMatrix();
 	glTranslated(x, y[0], 0.0);
-
+	
 	glColor3f(r, g, b);
-	glRecti(-45, -10, 45, 10);
+	glRecti(-85, -20, 85, 20);
+	
 
 	glPopMatrix();
 };

@@ -11,7 +11,6 @@ protected:
 	double x;
 	std::vector<double> y;
 	int destroyCoord;
-	int form, color;
 	int coliziune;
 
 	// Nr de puncte generat

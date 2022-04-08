@@ -1,12 +1,13 @@
 #include<windows.h>
 #include <GL\freeglut.h>
 #include <iostream>
+#include <string>
+#include <algorithm>
 #include "Jucator.h"
 #include "ColoanaOficiala.h"
-#include <string>
 #include "Masina.h"
 #include "Ambulanta.h"
-#include <algorithm>
+#include "Tir.h"
 
 
 // Marimea zonei de joc
@@ -48,8 +49,11 @@ void init(void)
 
 Inamic* genereazaInamic() {
 	int randomizator = rand() % 100;
-	if (randomizator < 70) {
+	if (randomizator < 40) {
 		return new Masina;
+	}
+	else if (randomizator < 70) {
+		return new Tir;
 	}
 	else if (randomizator < 90) {
 		return new Ambulanta;
