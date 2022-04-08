@@ -64,12 +64,20 @@ void initGame() {
 
 	paused = FALSE;
 }
+//Initializare verificare coliziune
+void initGameColiziune() {
+	score = 0;
+
+	ok = 1;
+
+	paused = FALSE;
+}
 
 // Functie care se ocupa de logica jocului in timp ce e activ
 void game()
 {
 
-	if ((* inamic).get_y() == juc.get_y() && ((*inamic).get_x() < juc.get_x() + 90 && (*inamic).get_x() > juc.get_x() - 90)) {
+	if ((* inamic).get_y() == juc.get_y() && ((*inamic).get_x() < juc.get_x() + (*inamic).get_coliziune() && (*inamic).get_x() > juc.get_x() - (*inamic).get_coliziune())) {
 		ok = 0;
 		return;
 	}
@@ -197,6 +205,9 @@ void normalKeyboard(unsigned char key, int x, int y)
 		break;
 	case 'r':
 		initGame();
+		break;
+	case 'z':
+		initGameColiziune();
 		break;
 	}
 }
