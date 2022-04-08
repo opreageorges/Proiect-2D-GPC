@@ -6,6 +6,8 @@ class Inamic
 private:
 	// Coordonatele inamicului
 	double x, y;
+	int form, color;
+	int coliziune;
 
 	// Nr de puncte generat
 	int puncte_generate;
@@ -19,6 +21,8 @@ public:
 
 	// Returneaza nr de puncte pentru evitarea inamicului
 	int getPuncte();
+
+	int get_coliziune();
 
 	// Functie de miscare
 	void misca(double);
