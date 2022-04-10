@@ -8,7 +8,7 @@ class Tir :
 private:
     float r, g, b;
 public:
-    Tir();
+    Tir(irrklang::ISoundEngine*);
 
     void misca(double);
     void draw();

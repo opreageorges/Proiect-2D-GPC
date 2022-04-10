@@ -8,7 +8,7 @@ private:
     double rotatie = 0.0;
 
 public:
-    Ambulanta();
+    Ambulanta(irrklang::ISoundEngine* audio_engine);
     void misca(double);
     void draw();
 };

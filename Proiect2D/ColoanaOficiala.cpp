@@ -1,11 +1,17 @@
 #include "ColoanaOficiala.h"
-ColoanaOficiala::ColoanaOficiala() {
+ColoanaOficiala::ColoanaOficiala(irrklang::ISoundEngine* audio_engine) : Inamic(audio_engine) {
+	
 	int y_posibili[2] = {0, 320};
 	y[0] = y_posibili[rand()%2];
-	coliziune = 200;
-	puncte_generate = 300;
 	y.push_back(160.0);
 
+	coliziune = 200;
+
+	claxon = "Sound/claxon_CO.wav";
+	audio_engine->getSoundSource(claxon);
+
+	puncte_generate = 300;
+	
 	destroyCoord = -250;
 }
 

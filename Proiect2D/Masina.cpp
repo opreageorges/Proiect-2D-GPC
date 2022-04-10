@@ -1,7 +1,7 @@
 #include "Masina.h"
 
 
-Masina::Masina() {
+Masina::Masina(irrklang::ISoundEngine* audio_engine) : Inamic(audio_engine) {
 	destroyCoord = -150;
 
 	coliziune = 100;

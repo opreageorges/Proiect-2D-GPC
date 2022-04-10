@@ -48,7 +48,7 @@ void Jucator::draw() {
 	glPushMatrix();
 	glTranslated(x, y, 0.0);
 
-	glColor3f(0.996, 0.365, 0.149);
+	glColor3f(0.996f, 0.365f, 0.149f);
 	glRecti(-45, -15, 45, 15);
 
 

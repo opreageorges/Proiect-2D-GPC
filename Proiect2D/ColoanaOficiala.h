@@ -8,7 +8,7 @@ class ColoanaOficiala :
 
 public:
 
-    ColoanaOficiala();
+    ColoanaOficiala(irrklang::ISoundEngine* audio_engine);
     void draw();
     void misca(double);
 };

@@ -1,14 +1,31 @@
+/*
+* Pentru libraria de audio:
+* Download link: https://www.ambiera.com/irrklang/downloads.html
+* Se adauga:
+* irrKlang.lib in Linker -> Input -> Additional Dependencies
+* irrKlang-1.6.0\include in C\C++ -> General -> Additional Include Directories
+* irrKlang-1.6.0\lib\Win32-visualStudio in Linker -> General -> Additional Library Directories
+*/
+
 #include<windows.h>
 #include <GL\freeglut.h>
 #include <iostream>
 #include <string>
 #include <algorithm>
+#include <irrKlang.h>
+#include <ik_ISound.h>
+
+// Jucatorul
 #include "Jucator.h"
+
+// Versiunile de inamici
 #include "ColoanaOficiala.h"
 #include "Masina.h"
 #include "Ambulanta.h"
 #include "Tir.h"
 
+// Enginul audio
+irrklang::ISoundEngine* audio_engine = irrklang::createIrrKlangDevice();
 
 // Marimea zonei de joc
 GLdouble left_m = -100.0;
@@ -50,16 +67,16 @@ void init(void)
 Inamic* genereazaInamic() {
 	int randomizator = rand() % 100;
 	if (randomizator < 40) {
-		return new Masina;
+		return new Masina(audio_engine);
 	}
 	else if (randomizator < 70) {
-		return new Tir;
+		return new Tir(audio_engine);
 	}
 	else if (randomizator < 90) {
-		return new Ambulanta;
+		return new Ambulanta(audio_engine);
 	}
 	else {
-		return new ColoanaOficiala;
+		return new ColoanaOficiala(audio_engine);
 	}
 }
 
@@ -101,6 +118,9 @@ void game()
 	if (std::count(enemy_y.begin(), enemy_y.end(), juc.get_y()) > 0 && ((*inamic).get_x() < juc.get_x() + (*inamic).get_coliziune() && (*inamic).get_x() > juc.get_x() - (*inamic).get_coliziune())) {
 		ok = 0;
 		return;
+	}
+	else if (std::count(enemy_y.begin(), enemy_y.end(), juc.get_y()) > 0 && ((*inamic).get_x() < juc.get_x() + (*inamic).get_coliziune() + 250 ) && !(inamic->get_a_claxonat())) {
+		audio_engine->play2D(audio_engine->getSoundSource((*inamic).get_claxon()), false, false, true);
 	}
 
 	(*inamic).misca(10);
@@ -239,7 +259,7 @@ void update(int) {
 		game();
 	}
 	glutPostRedisplay();
-	glutTimerFunc(1000/fps, update, 0);
+	glutTimerFunc(1000 / fps, update, 0);
 }
 
 int main(int argc, char** argv)
@@ -260,5 +280,5 @@ int main(int argc, char** argv)
 
 	
 	glutMainLoop();
-
+	audio_engine->drop();
 }

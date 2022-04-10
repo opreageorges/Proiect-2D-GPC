@@ -10,7 +10,7 @@ class Masina :
 private:
     float r, g, b;
 public:
-    Masina();
+    Masina(irrklang::ISoundEngine* audio_engine);
 
     void misca(double);
     void draw();

@@ -1,6 +1,10 @@
 #include "Ambulanta.h"
-Ambulanta::Ambulanta() {
+Ambulanta::Ambulanta(irrklang::ISoundEngine* audio_engine) : Inamic(audio_engine) {
 	coliziune = 40;
+
+	claxon = "Sound/claxon_ambulanta.wav";
+	audio_engine->getSoundSource(claxon);
+
 	puncte_generate = 150;
 	destroyCoord = -250;
 }
@@ -24,10 +28,10 @@ void Ambulanta::draw() {
 	glRectf(20, -115, 80, -90);
 
 	// faruri
-	glColor3f(0.8, 0.5, 0);
-	glRectf(25, -90, 35, -85);
-	glColor3f(0.8, 0.5, 0);
-	glRectf(65, -90, 75, -85);
+	glColor3f(0.8f, 0.5f, 0.0f);
+	glRectf(25.0f, -90.0f, 35.0f, -85.0f);
+	glColor3f(0.8f, 0.5f, 0.0f);
+	glRectf(65.0f, -90.0f, 75.0f, -85.0f);
 
 	// GIROFAR
 

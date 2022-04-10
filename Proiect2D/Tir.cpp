@@ -1,10 +1,13 @@
 #include "Tir.h"
 
-Tir::Tir() {
+Tir::Tir(irrklang::ISoundEngine* audio_engine) : Inamic(audio_engine) {
 	x += 100;
 	destroyCoord = -200;
 
 	coliziune = 135;
+
+	claxon = "Sound/claxon_tir.wav";
+	audio_engine->getSoundSource(claxon);
 
 	r = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
 	g = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
