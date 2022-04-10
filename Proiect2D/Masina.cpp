@@ -1,8 +1,11 @@
 #include "Masina.h"
+
+
 Masina::Masina() {
 	destroyCoord = -150;
 
 	coliziune = 100;
+
 	r = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
 	g = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
 	b = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);

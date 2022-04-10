@@ -165,6 +165,9 @@
     <ClInclude Include="Ambulanta.h" />
     <ClInclude Include="Tir.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Media Include="honk.wav" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
