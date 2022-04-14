@@ -126,6 +126,7 @@ void game()
 	std::vector<double> enemy_y = (*inamic).get_y();
 	if (std::count(enemy_y.begin(), enemy_y.end(), juc.get_y()) > 0 && ((*inamic).get_x() < juc.get_x() + (*inamic).get_coliziune() && (*inamic).get_x() > juc.get_x() - (*inamic).get_coliziune())) {
 		ok = 0;
+		main_game_sound_ISound->stop();
 		audio_engine->play2D(audio_engine->getSoundSource(crash_sound), false, false, true);
 		return;
 	}
