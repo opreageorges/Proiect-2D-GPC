@@ -172,11 +172,11 @@
   <ItemGroup>
     <Media Include="Sound\car crash.wav" />
     <Media Include="Sound\claxon_ambulanta.wav" />
-    <Media Include="Sound\claxon_ambulanta_baza.wav" />
     <Media Include="Sound\claxon_CO.wav" />
     <Media Include="Sound\claxon_default.wav" />
     <Media Include="Sound\claxon_tir.wav" />
     <Media Include="Sound\close dor, start engine, drive.wav" />
+    <Media Include="Sound\cuplu de betoniera2.wav" />
     <Media Include="Sound\drive loop.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -1,6 +1,7 @@
 #ifndef P2D_JUCATOR_H
 #define P2D_JUCATOR_H
 #include <GL\freeglut.h>
+#include <cmath>
 
 class Jucator
 {

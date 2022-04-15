@@ -83,4 +83,55 @@ void Jucator::draw() {
 	glColor3f(0, 0, 0);
 	glRecti(65, 38, 85, 32);
 	glPopMatrix();
+	
+	// Sigla
+	glPushMatrix();
+
+	glColor3f(1.0, 0.0, 1.0);
+	glScaled(0.1, 0.1, 1.0);
+	glTranslated(x * 10 + 106 * 10, y * 10, 0);
+
+	double pi = 3.14159265359;
+	double razaEmblemei = 100.0;
+	double razaTriunghiurilor = 90.0;
+	int nr_de_puncte = 100;
+	float unghi;
+
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3f(1.0f, 1.0f, 1.0f);  
+	glVertex2f(0.0f, 0.0f);       
+	for (int i = 0; i <= nr_de_puncte; i++) { 
+		unghi = i * 2.0f * pi / nr_de_puncte; 
+		glVertex2f(cos(unghi) * razaEmblemei, sin(unghi) * razaEmblemei);
+	}
+	glEnd();
+
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3f(0.0f, 0.0f, 1.0f);
+	glVertex2f(0.0f, 0.0f);
+	for (int i = 0; i <= nr_de_puncte; i++) {
+		unghi = i * 2.0f * pi / nr_de_puncte / 4;
+		glVertex2f(cos(unghi) * razaTriunghiurilor, sin(unghi) * razaTriunghiurilor);
+	}
+	glEnd();
+
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3f(0.0f, 0.0f, 1.0f);
+	glVertex2f(0.0f, 0.0f);
+	for (int i = 0; i <= nr_de_puncte; i++) {
+		unghi = i * -4.0f * pi / nr_de_puncte / 4;
+		glVertex2f(sin(unghi) * razaTriunghiurilor, cos(unghi) * razaTriunghiurilor);
+	}
+	glEnd();
+
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3f(1.0f, 1.0f, 1.0f);  
+	glVertex2f(0.0f, 0.0f);
+	for (int i = 0; i <= nr_de_puncte; i++) {
+		unghi = i * -4.0f * pi / nr_de_puncte / 8;
+		glVertex2f(sin(unghi) * razaTriunghiurilor, cos(unghi) * razaTriunghiurilor);
+	}
+	glEnd();
+
+	glPopMatrix();
 }

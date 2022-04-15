@@ -96,10 +96,10 @@
     <Media Include="Sound\car crash.wav">
       <Filter>Resource Files</Filter>
     </Media>
-    <Media Include="Sound\claxon_ambulanta_baza.wav">
+    <Media Include="Sound\drive loop.wav">
       <Filter>Resource Files</Filter>
     </Media>
-    <Media Include="Sound\drive loop.wav">
+    <Media Include="Sound\cuplu de betoniera2.wav">
       <Filter>Resource Files</Filter>
     </Media>
   </ItemGroup>

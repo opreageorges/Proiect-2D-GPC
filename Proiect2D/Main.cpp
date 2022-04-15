@@ -1,4 +1,4 @@
-/*
+﻿/*
 * Pentru libraria de audio:
 * Download link: https://www.ambiera.com/irrklang/downloads.html
 * Se adauga:
@@ -7,7 +7,7 @@
 * irrKlang-1.6.0\lib\Win32-visualStudio in Linker -> General -> Additional Library Directories
 */
 
-#include<windows.h>
+#include <windows.h>
 #include <GL\freeglut.h>
 #include <iostream>
 #include <string>
@@ -31,7 +31,11 @@ irrklang::ISoundEngine* audio_engine = irrklang::createIrrKlangDevice();
 const char* crash_sound = "Sound/car crash.wav";
 const char* main_game_sound = "Sound/drive loop.wav";
 const char* start_sound = "Sound/close dor, start engine, drive.wav";
+const char* cuplu_de_betoniera = "Sound/cdb.wav";
+bool cuplu_de_betoniera_one_time = true;
+irrklang::ISoundSource* cuplu_de_betoniera_ISoundSource;
 irrklang::ISound* main_game_sound_ISound;
+
 // Marimea zonei de joc
 GLdouble left_m = -100.0;
 GLdouble right_m = 700.0;
@@ -60,6 +64,8 @@ int pct = 1000;
 
 // Jocul este in pauza
 bool paused;
+
+bool first_time_start = true;
 
 // Functia de initializare a ferestrei
 void init(void)
@@ -102,24 +108,29 @@ void RenderString(float x, float y, void* font, const std::string sir)
 void initGame() {
 	score = 0;
 
-	audio_engine->getSoundSource(crash_sound);
+	if (first_time_start) {
+		cuplu_de_betoniera_ISoundSource = audio_engine->getSoundSource(cuplu_de_betoniera);
+		audio_engine->getSoundSource(crash_sound);
+		audio_engine->getSoundSource(start_sound);
+	}
 	main_game_sound_ISound = audio_engine->play2D(audio_engine->getSoundSource(main_game_sound), true, true, true);
-	audio_engine->getSoundSource(start_sound);
-	
+
 	juc = Jucator();
 	inamic = genereazaInamic();
 	
 	ok = 1;
 
-	paused = FALSE;
+	first_time_start = false;
+	paused = false;
 }
+
 //Initializare verificare coliziune
 void initGameColiziune() {
 	score = 0;
 
 	ok = 1;
 
-	paused = FALSE;
+	paused = false;
 }
 
 // Functie care se ocupa de logica jocului in timp ce e activ
@@ -134,6 +145,14 @@ void game()
 	}
 	else if (std::count(enemy_y.begin(), enemy_y.end(), juc.get_y()) > 0 && ((*inamic).get_x() < juc.get_x() + (*inamic).get_coliziune() + 250 ) && !(inamic->get_a_claxonat())) {
 		audio_engine->play2D(audio_engine->getSoundSource((*inamic).get_claxon()), false, false, true);
+	}
+
+	if (juc.get_x() >= 100 && cuplu_de_betoniera_one_time) {
+		audio_engine->play2D(cuplu_de_betoniera_ISoundSource, false, false, true);
+		cuplu_de_betoniera_one_time = false;
+	}
+	else if (juc.get_x() < 0) {
+		cuplu_de_betoniera_one_time = true;
 	}
 
 	(*inamic).misca(10);
@@ -205,7 +224,7 @@ void drawScene(void)
 
 	drawBackground();
 	
-
+	
 	if (ok == 0) {
 		RenderString(250.0f, 200.0f, GLUT_BITMAP_8_BY_13, std::string("GAME OVER"));
 	}
@@ -220,11 +239,11 @@ void drawScene(void)
 	frames++;
 	int final_time = (int)time(NULL);
 	if (final_time - initial_time == 1) {
-		std::cout << frames << std::endl;
+		std::cout << frames << '\n';
 		initial_time = final_time;
 		frames = 0;
 	}
-
+	
 }
 
 // Functia care se ocupa de tastele speciale
@@ -292,7 +311,7 @@ int main(int argc, char** argv)
 	glutDisplayFunc(drawScene);
 	audio_engine->play2D(audio_engine->getSoundSource(start_sound), false, false, true);
 	
-	glutTimerFunc(8700, update, 0);
+	glutTimerFunc(9000, update, 0);
 	
 	glutKeyboardFunc(normalKeyboard);
 	glutSpecialFunc(keyboard);
