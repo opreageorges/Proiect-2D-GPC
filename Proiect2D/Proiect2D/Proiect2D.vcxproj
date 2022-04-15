@@ -88,12 +88,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\GL\freeglut\include;C:\GL\glew\include;C:\GL\irrKlang-1.6.0\include;C:\Grafica\OpenGL\freeglut\include;C:\Grafica\OpenGL\glew\include;D:\Programe\Microsoft Visual Studio\GL\glew-2.1.0\include;D:\Programe\Microsoft Visual Studio\GL\freeglut\include;D:\Programe\Microsoft Visual Studio\GL\irrKlang-1.6.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Grafica\OpenGL\freeglut\include;C:\Grafica\OpenGL\glew\include;D:\Programe\Microsoft Visual Studio\GL\glew-2.1.0\include;D:\Programe\Microsoft Visual Studio\GL\freeglut\include;D:\Programe\Microsoft Visual Studio\GL\irrKlang-1.6.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\GL\irrKlang-1.6.0\lib\Win32-visualStudio;C:\GL\glew\lib\Release\Win32;C:\GL\freeglut\lib;C:\Grafica\OpenGL\freeglut\lib;C:\Grafica\OpenGL\glew\lib\Release\Win32;D:\Programe\Microsoft Visual Studio\GL\glew-2.1.0\lib\Release\Win32;D:\Programe\Microsoft Visual Studio\GL\freeglut\lib;D:\Programe\Microsoft Visual Studio\GL\irrKlang-1.6.0\lib\Win32-visualStudio;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Grafica\OpenGL\freeglut\lib;C:\Grafica\OpenGL\glew\lib\Release\Win32;D:\Programe\Microsoft Visual Studio\GL\glew-2.1.0\lib\Release\Win32;D:\Programe\Microsoft Visual Studio\GL\freeglut\lib;D:\Programe\Microsoft Visual Studio\GL\irrKlang-1.6.0\lib\Win32-visualStudio;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>freeglut.lib;glew32.lib;opengl32.lib;irrKlang.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -119,12 +119,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\GL\freeglut\include;C:\GL\glew\include;C:\GL\irrKlang-1.6.0\include;D:\Programe\Microsoft Visual Studio\GL\glew-2.1.0\include;D:\Programe\Microsoft Visual Studio\GL\freeglut\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Programe\Microsoft Visual Studio\GL\glew-2.1.0\include;D:\Programe\Microsoft Visual Studio\GL\freeglut\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\GL\irrKlang-1.6.0\lib\Win32-visualStudio;C:\GL\glew\lib\Release\Win32;C:\GL\freeglut\lib;D:\Programe\Microsoft Visual Studio\GL\glew-2.1.0\lib\Release\Win32;D:\Programe\Microsoft Visual Studio\GL\freeglut\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\Programe\Microsoft Visual Studio\GL\glew-2.1.0\lib\Release\Win32;D:\Programe\Microsoft Visual Studio\GL\freeglut\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>freeglut.lib;glew32.lib;opengl32.lib;irrKlang.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -170,11 +170,14 @@
     <ClInclude Include="Tir.h" />
   </ItemGroup>
   <ItemGroup>
+    <Media Include="Sound\car crash.wav" />
     <Media Include="Sound\claxon_ambulanta.wav" />
+    <Media Include="Sound\claxon_ambulanta_baza.wav" />
     <Media Include="Sound\claxon_CO.wav" />
     <Media Include="Sound\claxon_default.wav" />
     <Media Include="Sound\claxon_tir.wav" />
     <Media Include="Sound\close dor, start engine, drive.wav" />
+    <Media Include="Sound\drive loop.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
