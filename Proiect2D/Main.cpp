@@ -27,6 +27,11 @@
 // Enginul audio
 irrklang::ISoundEngine* audio_engine = irrklang::createIrrKlangDevice();
 
+// Suntele din joc
+const char* crash_sound = "Sound/car crash.wav";
+const char* main_game_sound = "Sound/drive loop.wav";
+const char* start_sound = "Sound/close dor, start engine, drive.wav";
+irrklang::ISound* main_game_sound_ISound;
 // Marimea zonei de joc
 GLdouble left_m = -100.0;
 GLdouble right_m = 700.0;
@@ -97,6 +102,10 @@ void RenderString(float x, float y, void* font, const std::string sir)
 void initGame() {
 	score = 0;
 
+	audio_engine->getSoundSource(crash_sound);
+	main_game_sound_ISound = audio_engine->play2D(audio_engine->getSoundSource(main_game_sound), true, true, true);
+	audio_engine->getSoundSource(start_sound);
+	
 	juc = Jucator();
 	inamic = genereazaInamic();
 	
@@ -119,6 +128,8 @@ void game()
 	std::vector<double> enemy_y = (*inamic).get_y();
 	if (std::count(enemy_y.begin(), enemy_y.end(), juc.get_y()) > 0 && ((*inamic).get_x() < juc.get_x() + (*inamic).get_coliziune() && (*inamic).get_x() > juc.get_x() - (*inamic).get_coliziune())) {
 		ok = 0;
+		main_game_sound_ISound->stop();
+		audio_engine->play2D(audio_engine->getSoundSource(crash_sound), false, false, true);
 		return;
 	}
 	else if (std::count(enemy_y.begin(), enemy_y.end(), juc.get_y()) > 0 && ((*inamic).get_x() < juc.get_x() + (*inamic).get_coliziune() + 250 ) && !(inamic->get_a_claxonat())) {
@@ -257,6 +268,11 @@ void normalKeyboard(unsigned char key, int x, int y)
 
 // Functia care updateaza logica jocului
 void update(int) {
+
+	if (main_game_sound_ISound->getIsPaused()) {
+		main_game_sound_ISound->setIsPaused(false);
+	}
+
 	if (!paused && ok == 1) {
 		game();
 	}
@@ -274,9 +290,10 @@ int main(int argc, char** argv)
 	init();
 	initGame();
 	glutDisplayFunc(drawScene);
-
-	glutTimerFunc(1000 / fps, update, 0);
-
+	audio_engine->play2D(audio_engine->getSoundSource(start_sound), false, false, true);
+	
+	glutTimerFunc(8700, update, 0);
+	
 	glutKeyboardFunc(normalKeyboard);
 	glutSpecialFunc(keyboard);
 
