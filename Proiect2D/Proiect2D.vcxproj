@@ -88,12 +88,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\GL\freeglut\include;C:\GL\glew\include;C:\GL\irrKlang-1.6.0\include;C:\Grafica\OpenGL\freeglut\include;C:\Grafica\OpenGL\glew\include;D:\Programe\Microsoft Visual Studio\GL\glew-2.1.0\include;D:\Programe\Microsoft Visual Studio\GL\freeglut\include;D:\Programe\Microsoft Visual Studio\GL\irrKlang-1.6.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Grafica\OpenGL\irrKlang-1.6.0\include;C:\GL\freeglut\include;C:\GL\glew\include;C:\GL\irrKlang-1.6.0\include;C:\Grafica\OpenGL\freeglut\include;C:\Grafica\OpenGL\glew\include;D:\Programe\Microsoft Visual Studio\GL\glew-2.1.0\include;D:\Programe\Microsoft Visual Studio\GL\freeglut\include;D:\Programe\Microsoft Visual Studio\GL\irrKlang-1.6.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\GL\irrKlang-1.6.0\lib\Win32-visualStudio;C:\GL\glew\lib\Release\Win32;C:\GL\freeglut\lib;C:\Grafica\OpenGL\freeglut\lib;C:\Grafica\OpenGL\glew\lib\Release\Win32;D:\Programe\Microsoft Visual Studio\GL\glew-2.1.0\lib\Release\Win32;D:\Programe\Microsoft Visual Studio\GL\freeglut\lib;D:\Programe\Microsoft Visual Studio\GL\irrKlang-1.6.0\lib\Win32-visualStudio;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Grafica\OpenGL\irrKlang-1.6.0\lib\Win32-visualStudio;C:\GL\irrKlang-1.6.0\lib\Win32-visualStudio;C:\GL\glew\lib\Release\Win32;C:\GL\freeglut\lib;C:\Grafica\OpenGL\freeglut\lib;C:\Grafica\OpenGL\glew\lib\Release\Win32;D:\Programe\Microsoft Visual Studio\GL\glew-2.1.0\lib\Release\Win32;D:\Programe\Microsoft Visual Studio\GL\freeglut\lib;D:\Programe\Microsoft Visual Studio\GL\irrKlang-1.6.0\lib\Win32-visualStudio;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>freeglut.lib;glew32.lib;opengl32.lib;irrKlang.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
