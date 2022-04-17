@@ -235,6 +235,7 @@ void update(int) {
 
 	if (!paused && ok == 1) {
 		game();
+		updateDelimiters();
 	}
 	glutPostRedisplay();
 	glutTimerFunc(1000 / fps, update, 0);
@@ -390,7 +391,6 @@ void drawBackground() {
 
 	// Liniile intrerupte
 	glPushMatrix();
-	updateDelimiters();
 	drawDelimiters();
 	glPopMatrix();
 }

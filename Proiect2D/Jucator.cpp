@@ -1,5 +1,7 @@
 #include "Jucator.h"
 
+#include <iostream>
+
 Jucator::Jucator() {
 	x = 0.0;
 	y = -30.0;
@@ -15,7 +17,7 @@ double Jucator::get_x() {
 
 void Jucator::miscasus(void)
 {
-	if (y < 320)
+	if (y < 290)
 	{
 		y += 160;
 	}
@@ -52,6 +54,7 @@ void Jucator::draw() {
 	glTranslated(x, y, 0.0);
 	glScaled(1.25, 1.25, 0.0);
 
+	std::cout << "Y: " << y << "\n";
 
 	// car base
 	glColor3f(0.84f, 0.11f, 0.18f);
