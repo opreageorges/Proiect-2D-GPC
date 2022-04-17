@@ -23,7 +23,7 @@ void Tir::draw() {
 	glTranslated(x-2, y[0], 0.0);
 	
 	//fata tirului - gri
-	glColor3f(0.560, 0.560, 0.560);
+	glColor3f(0.043, 0.039, 0.039);
 	glRecti(-20, -27, 10, 27);
 
 
@@ -32,7 +32,7 @@ void Tir::draw() {
 	glRecti(10, 32, 140, -32);
 
 	//spatele tirului  - gri
-	glColor3f(0.560, 0.560, 0.560);
+	glColor3f(0.043, 0.039, 0.039);
 	glRecti(140, -27, 150, 27);
 
 	//rotile

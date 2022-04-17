@@ -4,7 +4,7 @@
 
 Jucator::Jucator() {
 	x = 0.0;
-	y = -30.0;
+	y = 0.0;
 }
 
 double Jucator::get_y() {
@@ -51,10 +51,8 @@ void Jucator::miscaStanga(void)
 
 void Jucator::draw() {
 	glPushMatrix();
-	glTranslated(x, y, 0.0);
+	glTranslated(x, y - 30.0, 0.0);
 	glScaled(1.25, 1.25, 0.0);
-
-	std::cout << "Y: " << y << "\n";
 
 	// car base
 	glColor3f(0.84f, 0.11f, 0.18f);
@@ -193,7 +191,7 @@ void Jucator::draw() {
 	glPushMatrix();
 
 	glColor3f(1.0, 0.0, 1.0);
-	glTranslated(x + 145, y + 36, 0);
+	glTranslated(x + 145, y + 6, 0);
 	glScaled(0.075, 0.075, 1.0);
 
 	double pi = 3.14159265359;
