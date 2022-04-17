@@ -40,6 +40,7 @@ const char* cuplu_de_betoniera = "Sound/cdb.wav";
 bool cuplu_de_betoniera_one_time = true;
 irrklang::ISoundSource* cuplu_de_betoniera_ISoundSource;
 irrklang::ISound* main_game_sound_ISound;
+irrklang::ISound* betoniera_ISound = audio_engine->play2D(audio_engine->getSoundSource(cuplu_de_betoniera), false, true, true);
 
 // Marimea zonei de joc
 GLdouble left_m = -100.0;
@@ -112,7 +113,6 @@ void initGame() {
 	score = 0;
 
 	if (first_time_start) {
-		cuplu_de_betoniera_ISoundSource = audio_engine->getSoundSource(cuplu_de_betoniera);
 		audio_engine->getSoundSource(crash_sound);
 		audio_engine->getSoundSource(start_sound);
 	}
@@ -149,6 +149,7 @@ void game()
 	if (std::count(enemy_y.begin(), enemy_y.end(), juc.get_y()) > 0 && ((*inamic).get_x() < juc.get_x() + (*inamic).get_coliziune() && (*inamic).get_x() > juc.get_x() - (*inamic).get_coliziune())) {
 		ok = 0;
 		main_game_sound_ISound->stop();
+		betoniera_ISound->stop();
 		audio_engine->play2D(audio_engine->getSoundSource(crash_sound), false, false, true);
 		return;
 	}
@@ -157,7 +158,7 @@ void game()
 	}
 
 	if (juc.get_x() >= 100 && cuplu_de_betoniera_one_time) {
-		audio_engine->play2D(cuplu_de_betoniera_ISoundSource, false, false, true);
+		betoniera_ISound->setIsPaused(false);
 		cuplu_de_betoniera_one_time = false;
 	}
 	else if (juc.get_x() < 0) {
@@ -165,6 +166,10 @@ void game()
 	}
 
 	(*inamic).misca(10);
+	if (betoniera_ISound->isFinished()) {
+		betoniera_ISound->setPlayPosition(0);
+		betoniera_ISound->setIsPaused(true);
+	}
 
 	if ((*inamic).get_x() < ((*inamic).getDestroyCoord()))
 	{
