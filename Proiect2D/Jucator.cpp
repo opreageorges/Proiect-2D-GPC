@@ -1,7 +1,5 @@
 #include "Jucator.h"
 
-#include <iostream>
-
 Jucator::Jucator() {
 	x = 0.0;
 	y = 0.0;
