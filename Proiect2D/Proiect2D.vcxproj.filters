@@ -41,7 +41,7 @@
     <ClCompile Include="Inamic.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ColoanaOficiala.cpp">
+    <ClCompile Include="Bikers.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Masina.cpp">
@@ -61,7 +61,7 @@
     <ClInclude Include="Inamic.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ColoanaOficiala.h">
+    <ClInclude Include="Bikers.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Masina.h">

@@ -19,10 +19,15 @@
 #include "Jucator.h"
 
 // Versiunile de inamici
-#include "ColoanaOficiala.h"
+#include "Bikers.h"
 #include "Masina.h"
 #include "Ambulanta.h"
 #include "Tir.h"
+
+
+////////////////////////////////////////////////////////////////////
+//	Variables
+////////////////////////////////////////////////////////////////////
 
 // Enginul audio
 irrklang::ISoundEngine* audio_engine = irrklang::createIrrKlangDevice();
@@ -67,16 +72,25 @@ bool paused;
 
 bool first_time_start = true;
 
+// Pozitia liniilor delimitatoare
+double delimiter_pos = 0;
+
+
+
+////////////////////////////////////////////////////////////////////
+//	Initializers
+////////////////////////////////////////////////////////////////////
+
 // Functia de initializare a ferestrei
 void init(void)
 {
-	glClearColor(0.98f, 0.929f, 0.792f, 0.0f);
+	glClearColor(0.53f, 0.53f, 0.53f, 0.0f);
 	glMatrixMode(GL_PROJECTION);
 	glOrtho(left_m, right_m, bottom_m, top_m, -1.0, 1.0);
 }
 
 Inamic* genereazaInamic() {
-	
+
 	int randomizator = rand() % 100;
 	if (randomizator < 40) {
 		return new Masina(audio_engine);
@@ -88,20 +102,9 @@ Inamic* genereazaInamic() {
 		return new Ambulanta(audio_engine);
 	}
 	else {
-		return new ColoanaOficiala(audio_engine);
+		return new Bikers(audio_engine);
 	}
-	
-}
 
-// Scrie un text pe ecran
-void RenderString(float x, float y, void* font, const std::string sir)
-{	
-	int lungime = sir.length();
-	const unsigned char *caster = (const unsigned char*)sir.c_str();;
-
-	glColor3f(0.0f, 0.0f, 0.0f);
-	glRasterPos2f(x, y);
-	glutBitmapString(font, (const unsigned char*)caster);
 }
 
 // Initializeaza toate variabilele de la inceputul jocului (Util pentru restart)
@@ -117,7 +120,7 @@ void initGame() {
 
 	juc = Jucator();
 	inamic = genereazaInamic();
-	
+
 	ok = 1;
 
 	first_time_start = false;
@@ -133,6 +136,12 @@ void initGameColiziune() {
 	paused = false;
 }
 
+
+
+////////////////////////////////////////////////////////////////////
+//	Functionality
+////////////////////////////////////////////////////////////////////
+
 // Functie care se ocupa de logica jocului in timp ce e activ
 void game()
 {
@@ -143,7 +152,7 @@ void game()
 		audio_engine->play2D(audio_engine->getSoundSource(crash_sound), false, false, true);
 		return;
 	}
-	else if (std::count(enemy_y.begin(), enemy_y.end(), juc.get_y()) > 0 && ((*inamic).get_x() < juc.get_x() + (*inamic).get_coliziune() + 250 ) && !(inamic->get_a_claxonat())) {
+	else if (std::count(enemy_y.begin(), enemy_y.end(), juc.get_y()) > 0 && ((*inamic).get_x() < juc.get_x() + (*inamic).get_coliziune() + 250) && !(inamic->get_a_claxonat())) {
 		audio_engine->play2D(audio_engine->getSoundSource((*inamic).get_claxon()), false, false, true);
 	}
 
@@ -163,87 +172,6 @@ void game()
 		delete inamic;
 		inamic = genereazaInamic();
 	}
-}
-
-// Functia care deseneaza imaginea de fundal
-void drawBackground() {
-	glColor3f(0.55f, 0.788f, 0.451f);
-
-	// Iarba de jos
-	glBegin(GL_POLYGON);
-	glVertex2i(-100, -140);// Stanga jos
-	glVertex2i(700, -140); // Dreapta jos
-	glVertex2i(700, -80);  // Dreapta sus
-	glVertex2i(-100, -80); // Stanga sus
-	glEnd();
-
-	// Iarba de sus
-	glBegin(GL_POLYGON);
-	glVertex2i(-100, 400);// Stanga jos
-	glVertex2i(700, 400); // Dreapta jos
-	glVertex2i(700, 460); // Dreapta sus
-	glVertex2i(-100, 460);// Stanga sus
-	glEnd();
-	RenderString(100.0f, 425.0f, GLUT_BITMAP_TIMES_ROMAN_24, std::string("Depaseste masinile!     Scor: ") + std::to_string(score));
-
-	// Delimitare sosea
-	glLineWidth(3);
-	glColor3f(1, 1, 1);
-
-	// Delimitam soseaua de iarba partea de jos
-	glBegin(GL_LINES);
-	glVertex2i(-100, -80);
-	glVertex2i(1500, -80);
-	glEnd();
-
-	// Delimitam soseaua de iarba partea de sus
-	glBegin(GL_LINES);
-	glVertex2i(-100, 400);
-	glVertex2i(1500, 400);
-	glEnd();
-
-	// Liniile intrerupte
-
-	glBegin(GL_LINES);
-	glVertex2i(-100, 80);
-	glVertex2i(1500, 80);
-	glEnd();
-
-	glBegin(GL_LINES);
-	glVertex2i(-100, 240);
-	glVertex2i(1500, 240);
-	glEnd();
-
-	glPopMatrix();
-}
-
-// Functia care deseneaza tot
-void drawScene(void)
-{
-	glClear(GL_COLOR_BUFFER_BIT);
-
-	drawBackground();
-	
-	
-	if (ok == 0) {
-		RenderString(250.0f, 200.0f, GLUT_BITMAP_8_BY_13, std::string("GAME OVER"));
-	}
-
-	juc.draw();
-	(*inamic).draw();
-
-	glutSwapBuffers();
-	glFlush();
-
-	// Calculeaza fps-ul
-	frames++;
-	int final_time = (int)time(NULL);
-	if (final_time - initial_time == 1) {
-		std::cout << frames << '\n';
-		initial_time = final_time;
-		frames = 0;
-	}
-	
 }
 
 // Functia care se ocupa de tastele speciale
@@ -285,6 +213,19 @@ void normalKeyboard(unsigned char key, int x, int y)
 	}
 }
 
+
+
+////////////////////////////////////////////////////////////////////
+//	Update functions
+////////////////////////////////////////////////////////////////////
+
+void updateDelimiters() {
+	delimiter_pos -= 6;
+
+	if (delimiter_pos < -800)
+		delimiter_pos = 0;
+}
+
 // Functia care updateaza logica jocului
 void update(int) {
 
@@ -294,10 +235,201 @@ void update(int) {
 
 	if (!paused && ok == 1) {
 		game();
+		updateDelimiters();
 	}
 	glutPostRedisplay();
 	glutTimerFunc(1000 / fps, update, 0);
 }
+
+
+
+////////////////////////////////////////////////////////////////////
+//	Draw functions
+////////////////////////////////////////////////////////////////////
+
+// Scrie un text pe ecran
+void RenderString(float x, float y, void* font, const std::string sir)
+{	
+	int lungime = sir.length();
+	const unsigned char *caster = (const unsigned char*)sir.c_str();;
+
+	glColor3f(0.0f, 0.0f, 0.0f);
+	glRasterPos2f(x, y);
+	glutBitmapString(font, (const unsigned char*)caster);
+}
+
+void drawDelimiters() {
+	for (int line = 0; line < 2; line++) {
+		glPushMatrix();
+		glTranslated(delimiter_pos, 0.0, 0.0);
+
+		glLineWidth(15);
+
+		// Prima linie de delimitare
+		glBegin(GL_LINES);
+		glVertex2i(0, 80);
+		glVertex2i(100, 80);
+		glEnd();
+
+		glBegin(GL_LINES);
+		glVertex2i(200, 80);
+		glVertex2i(300, 80);
+		glEnd();
+
+		glBegin(GL_LINES);
+		glVertex2i(400, 80);
+		glVertex2i(500, 80);
+		glEnd();
+
+		glBegin(GL_LINES);
+		glVertex2i(600, 80);
+		glVertex2i(700, 80);
+		glEnd();
+
+		glBegin(GL_LINES);
+		glVertex2i(800, 80);
+		glVertex2i(900, 80);
+		glEnd();
+
+		glBegin(GL_LINES);
+		glVertex2i(1000, 80);
+		glVertex2i(1100, 80);
+		glEnd();
+
+		glBegin(GL_LINES);
+		glVertex2i(1200, 80);
+		glVertex2i(1300, 80);
+		glEnd();
+
+		glBegin(GL_LINES);
+		glVertex2i(1400, 80);
+		glVertex2i(1500, 80);
+		glEnd();
+
+
+		// A doua linie de delimitare
+		glBegin(GL_LINES);
+		glVertex2i(0, 240);
+		glVertex2i(100, 240);
+		glEnd();
+
+		glBegin(GL_LINES);
+		glVertex2i(200, 240);
+		glVertex2i(300, 240);
+		glEnd();
+
+		glBegin(GL_LINES);
+		glVertex2i(400, 240);
+		glVertex2i(500, 240);
+		glEnd();
+
+		glBegin(GL_LINES);
+		glVertex2i(600, 240);
+		glVertex2i(700, 240);
+		glEnd();
+
+		glBegin(GL_LINES);
+		glVertex2i(800, 240);
+		glVertex2i(900, 240);
+		glEnd();
+
+		glBegin(GL_LINES);
+		glVertex2i(1000, 240);
+		glVertex2i(1100, 240);
+		glEnd();
+
+		glBegin(GL_LINES);
+		glVertex2i(1200, 240);
+		glVertex2i(1300, 240);
+		glEnd();
+
+		glBegin(GL_LINES);
+		glVertex2i(1400, 240);
+		glVertex2i(1500, 240);
+		glEnd();
+
+		glPopMatrix();
+	}
+}
+
+// Functia care deseneaza imaginea de fundal
+void drawBackground() {
+	glColor3f(0.4f, 0.91f, 0.36f);
+
+	// Iarba de jos
+	glBegin(GL_POLYGON);
+	glVertex2i(-100, -140);// Stanga jos
+	glVertex2i(700, -140); // Dreapta jos
+	glVertex2i(700, -80);  // Dreapta sus
+	glVertex2i(-100, -80); // Stanga sus
+	glEnd();
+
+	// Iarba de sus
+	glBegin(GL_POLYGON);
+	glVertex2i(-100, 400);// Stanga jos
+	glVertex2i(700, 400); // Dreapta jos
+	glVertex2i(700, 460); // Dreapta sus
+	glVertex2i(-100, 460);// Stanga sus
+	glEnd();
+	RenderString(100.0f, 425.0f, GLUT_BITMAP_TIMES_ROMAN_24, std::string("Depaseste masinile!     Scor: ") + std::to_string(score));
+
+	// Delimitare sosea
+	glLineWidth(3);
+	glColor3f(1, 1, 1);
+
+	// Delimitam soseaua de iarba partea de jos
+	glBegin(GL_LINES);
+	glVertex2i(-100, -80);
+	glVertex2i(1500, -80);
+	glEnd();
+
+	// Delimitam soseaua de iarba partea de sus
+	glBegin(GL_LINES);
+	glVertex2i(-100, 400);
+	glVertex2i(1500, 400);
+	glEnd();
+
+	// Liniile intrerupte
+	glPushMatrix();
+	drawDelimiters();
+	glPopMatrix();
+}
+
+// Functia care deseneaza tot
+void drawScene(void)
+{
+	glClear(GL_COLOR_BUFFER_BIT);
+
+	drawBackground();
+
+
+	if (ok == 0) {
+		RenderString(250.0f, 200.0f, GLUT_BITMAP_8_BY_13, std::string("GAME OVER"));
+	}
+
+	juc.draw();
+	(*inamic).draw();
+
+	glutSwapBuffers();
+	glFlush();
+
+	// Calculeaza fps-ul
+	frames++;
+	int final_time = (int)time(NULL);
+	if (final_time - initial_time == 1) {
+		std::cout << frames << '\n';
+		initial_time = final_time;
+		frames = 0;
+	}
+
+}
+
+
+
+
+////////////////////////////////////////////////////////////////////
+//	Main
+////////////////////////////////////////////////////////////////////
 
 int main(int argc, char** argv)
 {
