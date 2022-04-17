@@ -152,7 +152,7 @@
     <None Include="irrKlang.dll" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ColoanaOficiala.cpp" />
+    <ClCompile Include="Bikers.cpp" />
     <ClCompile Include="Inamic.cpp" />
     <ClCompile Include="Jucator.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -161,7 +161,7 @@
     <ClCompile Include="Tir.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ColoanaOficiala.h" />
+    <ClInclude Include="Bikers.h" />
     <ClInclude Include="Inamic.h" />
     <ClInclude Include="Jucator.h" />
     <ClInclude Include="Masina.h" />

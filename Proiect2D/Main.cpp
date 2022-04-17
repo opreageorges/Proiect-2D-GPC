@@ -19,7 +19,7 @@
 #include "Jucator.h"
 
 // Versiunile de inamici
-#include "ColoanaOficiala.h"
+#include "Bikers.h"
 #include "Masina.h"
 #include "Ambulanta.h"
 #include "Tir.h"
@@ -102,7 +102,7 @@ Inamic* genereazaInamic() {
 		return new Ambulanta(audio_engine);
 	}
 	else {
-		return new ColoanaOficiala(audio_engine);
+		return new Bikers(audio_engine);
 	}
 
 }
