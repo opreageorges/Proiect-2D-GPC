@@ -123,7 +123,7 @@ void Bikers::draw_motorcycle() {
 }
 
 void Bikers::draw() {
-	glPushMatrix();
+	/*glPushMatrix();
 	glTranslated(x, y[0] - 50, 0.0);
 	this->draw_motorcycle();
 	glPopMatrix();
@@ -141,7 +141,7 @@ void Bikers::draw() {
 	glPushMatrix();
 	glTranslated(x - 130, y[1] - 50, 0.0);
 	this->draw_motorcycle();
-	glPopMatrix();
+	glPopMatrix();*/
 
 	/*glPushMatrix();
 	

@@ -1,8 +1,9 @@
 #include "Inamic.h"
 
 Inamic::Inamic(irrklang::ISoundEngine* audio_engine) {
-	x = 800.0;
-	y.push_back(160 * (rand() % 3));
+	x = 140.0;
+	int y_posibili[3] = { 10, -10, 0 };
+	y.push_back(y_posibili[rand() % 3]);
 	puncte_generate = 100;
 	claxon = "Sound/claxon_default.wav";
 	audio_engine->getSoundSource(claxon);
