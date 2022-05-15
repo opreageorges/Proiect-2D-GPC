@@ -564,7 +564,7 @@ int main(int argc, char** argv)
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
 	glutInitWindowPosition(100, 100);
 	glutInitWindowSize(800, 600);
-	glutCreateWindow("Depaseste masinile - mini game");
+	glutCreateWindow("Depaseste masinile - mini game - Don't Press B");
 	initGame();
 	glutDisplayFunc(drawScene);
 	glutReshapeFunc(changeSize);
