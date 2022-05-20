@@ -154,7 +154,10 @@ void Loader::recursive_render(const aiScene* sc, const aiNode* nd)
 }
 
 void Loader::loadOBJ(std::string path, std::string nume) {
-	
+	if (loadedOBJS[nume] != 0) {
+		return;
+	}
+
 	//importer.FreeScene();
 	const aiScene* scena = importer->ReadFile(path, aiProcess_Triangulate | aiProcess_RemoveRedundantMaterials | aiProcess_OptimizeMeshes);
 	if (scena == NULL) {
@@ -172,22 +175,13 @@ void Loader::loadOBJ(std::string path, std::string nume) {
 
 	glEndList();
 
-	loadedOBJS.insert(std::pair<std::string, GLuint>( nume, x ));
+	loadedOBJS[nume] = x;
 
 }
 
 void Loader::draw(std::string nume, glm::vec3 locatie, glm::vec3 scala, glm::vec4 rotatie, glm::vec4 culoare) {
 	GLuint objlist = this->loadedOBJS.at(nume);
 	glPushMatrix();
-	glTranslatef(locatie.x, locatie.y, locatie.z);
-	if (culoare.x > 0) {
-		float culoaredifuza[4] = { culoare.x, culoare.y, culoare.z, culoare.a };
-		glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, culoaredifuza);
-	}
-	glScalef(scala.x, scala.y, scala.z);
-	if (rotatie.x>0) {
-		glRotatef(rotatie.x, rotatie.y, rotatie.z, rotatie.w);
-	}
 	glCallList(objlist);
 	glPopMatrix();
 }

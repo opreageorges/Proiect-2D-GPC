@@ -47,11 +47,19 @@ void Jucator::miscaStanga(void)
 	}
 }
 
+void Jucator::set_Loader(Loader *l) {
+	this->l = l;
+}
+
 void Jucator::draw() {
 	glPushMatrix();
-	glColor3f(1.0f, 0.0f, 0.0f);
-	glTranslatef(5+x, y, 0.2);
-	glScalef(3, 1, 0.3);
-	glutSolidCube(1);
+	glTranslatef(5 + x, y, 0.6);
+	glScalef(.5, .5, .5);
+	
+	glRotatef(90, 1, 0, 0);
+	glRotatef(90, 0, 1, 0);
+	
+	l->draw("logan", glm::vec3(), glm::vec3(.5, .5, .5), glm::vec4(90, 1, 0, 0));
+	glRotated(90, 0, 0, 1);
 	glPopMatrix();
 }

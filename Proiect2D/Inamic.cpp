@@ -38,3 +38,7 @@ const char* Inamic::get_claxon() {
 bool Inamic::get_a_claxonat() {
 	return a_claxonat;
 }
+
+void Inamic::set_Loader(Loader* l) {
+	this->l = l;
+}

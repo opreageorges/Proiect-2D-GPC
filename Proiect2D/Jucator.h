@@ -2,13 +2,14 @@
 #define P2D_JUCATOR_H
 #include <GL\freeglut.h>
 #include <cmath>
+#include"Loader.h"
 
 class Jucator
 {
 private:
 	// Coordonatel jucatorului
 	double x, y;
-
+	Loader* l;
 public:
 	Jucator();
 
@@ -24,5 +25,7 @@ public:
 
 	// Functia de desenare
 	void draw();
+
+	void set_Loader(Loader* l);
 };
 #endif

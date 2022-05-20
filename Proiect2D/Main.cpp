@@ -93,7 +93,6 @@ bool first_time_start = true;
 ////////////////////////////////////////////////////////////////////
 
 
-
 Inamic* genereazaInamic() {
 
 	int randomizator = rand() % 100;
@@ -109,6 +108,7 @@ Inamic* genereazaInamic() {
 	else {
 		return new Bikers(audio_engine);
 	}
+	(*inamic).set_Loader(l);
 
 }
 
@@ -192,6 +192,7 @@ void initGame() {
 	main_game_sound_ISound = audio_engine->play2D(audio_engine->getSoundSource(main_game_sound), true, true, true);
 
 	juc = Jucator();
+	juc.set_Loader(l);
 	inamic = genereazaInamic();
 
 	ok = 1;
@@ -214,10 +215,6 @@ void initGameColiziune() {
 ////////////////////////////////////////////////////////////////////
 //	Functionality
 ////////////////////////////////////////////////////////////////////
-
-struct puncte {
-	float x, y, z;
-};
 
 // Functie care se ocupa de logica jocului in timp ce e activ
 void game()
@@ -420,21 +417,6 @@ void RenderString(float x, float y, void* font, const std::string sir)
 	glutBitmapString(font, (const unsigned char*)caster);
 }
 
-void drawDelimiters() {
-	float culoare_linie[4] = { 0.949f, 0.953f, 0.957f , 1.0f };
-	for (int i = 0; i < 100; i++) {
-		for (int line = 0; line < 2; line++) {
-			glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, culoare_linie);
-			glBegin(GL_QUADS);
-			glVertex3f(0 + i* 10, 5.5 - line * 10, 0.1);// Stanga jos
-			glVertex3f(0 + i * 10, 4.5 - line * 10, 0.1); // Dreapta jos
-			glVertex3f(5 + i * 10, 4.5 - line * 10, 0.1); // Dreapta sus
-			glVertex3f(5 + i * 10, 5.5 - line * 10, 0.1);// Stanga sus
-			glEnd();
-		}
-	}
-}
-
 // Functia care deseneaza imaginea de fundal
 void drawBackground() {
 	glPushMatrix();
@@ -485,9 +467,19 @@ void drawBackground() {
 	glVertex3i(200, -14, 0);// Stanga sus
 	glEnd();
 
+	float culoare_linie[4] = { 0.949f, 0.953f, 0.957f , 1.0f };
+	for (int i = 0; i < 100; i++) {
+		for (int line = 0; line < 2; line++) {
+			glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, culoare_linie);
+			glBegin(GL_QUADS);
+			glVertex3f(0 + i * 10, 5.5 - line * 10, 0.1);// Stanga jos
+			glVertex3f(0 + i * 10, 4.5 - line * 10, 0.1); // Dreapta jos
+			glVertex3f(5 + i * 10, 4.5 - line * 10, 0.1); // Dreapta sus
+			glVertex3f(5 + i * 10, 5.5 - line * 10, 0.1);// Stanga sus
+			glEnd();
+		}
+	}
 
-	
-	drawDelimiters();
 	glPopMatrix();
 }
 
@@ -502,7 +494,6 @@ void drawScene(void)
 	
 	GLfloat lightpos[] = { -20, 0, 1, 1.0 };
 
-	//glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambcolor);
 	glEnable(GL_LIGHT0);
 	glEnable(GL_NORMALIZE);
 	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
@@ -517,7 +508,7 @@ void drawScene(void)
 	drawBackground();
 	
 	//glPushMatrix();
-	l->draw("logan", glm::vec3(8, 0, 3), glm::vec3(.5, .5, .5));
+	
 	//glPopMatrix();
 	if (ok == 0) {
 		RenderString(250.0f, 200.0f, GLUT_BITMAP_8_BY_13, std::string("GAME OVER"));
@@ -577,12 +568,15 @@ int main(int argc, char** argv)
 	glutInitWindowPosition(100, 100);
 	glutInitWindowSize(800, 600);
 	glutCreateWindow("Depaseste masinile - mini game - Don't Press B");
-	initGame();
 	l = l->getInstance();
+	initGame();
+
 	l->loadOBJ("OBJS/logan/Dacia.fbx", "logan");
+	l->loadOBJ("OBJS/e46/e46.blend", "logan");
 	//l->loadOBJ("OBJS/e46/e46.blend", "e46");
 	glutDisplayFunc(drawScene);
 	glutReshapeFunc(changeSize);
+	
 	audio_engine->play2D(audio_engine->getSoundSource(start_sound), false, false, true);
 	if (!radioPaused) {
 		radioPaused = !radioPaused;

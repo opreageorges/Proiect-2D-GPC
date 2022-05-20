@@ -4,10 +4,12 @@
 #include <vector>
 #include <GL\freeglut.h>
 #include <irrKlang.h>
+#include "Loader.h"
 
 class Inamic
 {
 protected:
+	Loader* l;
 	// Coordonatele inamicului
 	double x;
 	std::vector<double> y;
@@ -52,5 +54,7 @@ public:
 	void virtual draw() = 0;
 	
 	bool get_a_claxonat();
+
+	void set_Loader(Loader* l);
 };
 #endif
