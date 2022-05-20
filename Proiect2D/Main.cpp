@@ -43,6 +43,28 @@ irrklang::ISoundSource* cuplu_de_betoniera_ISoundSource;
 irrklang::ISound* main_game_sound_ISound;
 irrklang::ISound* betoniera_ISound = audio_engine->play2D(audio_engine->getSoundSource(cuplu_de_betoniera), false, true, true);
 
+//Radio
+bool radioPaused = false;
+const char* maneleStation = "Sound/Manele Station.mp3";
+const char* doomStation = "Sound/Doom Station.mp3";
+const char* popularaStation = "Sound/Populare Station.mp3";
+const char* psychedelicStation = "Sound/Psychedelic Trance Hallucinations Station.mp3";
+const char* rockStation = "Sound/Rock Station.mp3";
+const char* pianoStation = "Sound/Piano Station.mp3";
+const char* nfsmwStation = "Sound/NFS Most Wanted Station.mp3";
+const char* elevatorStation = "Sound/Elevator Station.mp3";
+const char* crazyfStation = "Sound/Crazy Frog Station.mp3";
+
+irrklang::ISound* manele = audio_engine->play2D(maneleStation, true, true, true);
+irrklang::ISound* doom = audio_engine->play2D(doomStation, true, true, true);
+irrklang::ISound* populara = audio_engine->play2D(popularaStation, true, true, true);
+irrklang::ISound* psychedelic = audio_engine->play2D(psychedelicStation, true, true, true);
+irrklang::ISound* rock = audio_engine->play2D(rockStation, true, true, true);
+irrklang::ISound* piano = audio_engine->play2D(pianoStation, true, true, true);
+irrklang::ISound* nfsmw = audio_engine->play2D(nfsmwStation, true, true, true);
+irrklang::ISound* elevator = audio_engine->play2D(elevatorStation, true, true, true);
+irrklang::ISound* crazyf = audio_engine->play2D(crazyfStation, true, true, true);
+
 // Numarul maxim de framuri pe secunda
 int fps = 60;
 
@@ -90,6 +112,74 @@ Inamic* genereazaInamic() {
 
 }
 
+//Radio
+void radioStation(int station) {
+	switch (station)
+	{
+	case 0:
+		manele->setVolume(0);
+		doom->setVolume(0);
+		populara->setVolume(0);
+		psychedelic->setVolume(0);
+		piano->setVolume(0);
+		elevator->setVolume(0);
+		rock->setVolume(0);
+		nfsmw->setVolume(0);
+		crazyf->setVolume(0);
+		break;
+	case 1:
+		radioStation(0);
+		manele->setVolume(100);
+		break;
+	case 2:
+		radioStation(0);
+		doom->setVolume(100);
+		break;
+	case 3:
+		radioStation(0);
+		populara->setVolume(100);
+		break;
+	case 4:
+		radioStation(0);
+		psychedelic->setVolume(100);
+		break;
+	case 5:
+		radioStation(0);
+		piano->setVolume(100);
+		break;
+	case 6:
+		radioStation(0);
+		elevator->setVolume(100);
+		break;
+	case 7:
+		radioStation(0);
+		rock->setVolume(100);
+		break;
+	case 8:
+		radioStation(0);
+		nfsmw->setVolume(100);
+		break;
+	case 9:
+		radioStation(0);
+		crazyf->setVolume(100);
+		break;
+	case 10:
+		radioStation(0);
+		manele->setVolume(100);
+		doom->setVolume(100);
+		populara->setVolume(100);
+		psychedelic->setVolume(100);
+		piano->setVolume(100);
+		elevator->setVolume(100);
+		rock->setVolume(100);
+		nfsmw->setVolume(100);
+		crazyf->setVolume(100);
+		break;
+	default:
+		break;
+	}
+}
+
 // Initializeaza toate variabilele de la inceputul jocului (Util pentru restart)
 void initGame() {
 	score = 0;
@@ -97,6 +187,7 @@ void initGame() {
 	if (first_time_start) {
 		audio_engine->getSoundSource(crash_sound);
 		audio_engine->getSoundSource(start_sound);
+		radioStation(0);
 	}
 	main_game_sound_ISound = audio_engine->play2D(audio_engine->getSoundSource(main_game_sound), true, true, true);
 
@@ -136,6 +227,7 @@ void game()
 		ok = 0;
 		main_game_sound_ISound->stop();
 		betoniera_ISound->stop();
+		radioStation(0);
 		audio_engine->play2D(audio_engine->getSoundSource(crash_sound), false, false, true);
 		return;
 	}
@@ -193,7 +285,7 @@ void keyboard(int key, int x, int y)
 void normalKeyboard(unsigned char key, int x, int y)
 {
 	switch (key) {
-	case '1':
+	case '0':
 		std::cout << juc.get_x();
 		break;
 	case ' ':
@@ -206,6 +298,88 @@ void normalKeyboard(unsigned char key, int x, int y)
 	case 'z':
 		initGameColiziune();
 		break;
+	case 'm':
+		radioStation(0);
+		break;
+	case '1':
+		if (ok == 1) {
+			radioStation(1);
+		}
+		else {
+			radioStation(0);
+		}
+		break;
+	case '2':
+		if (ok == 1) {
+			radioStation(2);
+		}
+		else {
+			radioStation(0);
+		}
+		break;
+	case '3':
+		if (ok == 1) {
+			radioStation(3);
+		}
+		else {
+			radioStation(0);
+		}
+		break;
+	case '4':
+		if (ok == 1) {
+			radioStation(4);
+		}
+		else {
+			radioStation(0);
+		}
+		break;
+	case '5':
+		if (ok == 1) {
+			radioStation(5);
+		}
+		else {
+			radioStation(0);
+		}
+		break;
+	case '6':
+		if (ok == 1) {
+			radioStation(6);
+		}
+		else {
+			radioStation(0);
+		}
+		break;
+	case '7':
+		if (ok == 1) {
+			radioStation(7);
+		}
+		else {
+			radioStation(0);
+		}
+		break;
+	case '8':
+		if (ok == 1) {
+			radioStation(8);
+		}
+		else {
+			radioStation(0);
+		}
+		break;
+	case '9':
+		if (ok == 1) {
+			radioStation(9);
+		}
+		else {
+			radioStation(0);
+		}
+		break;
+	case 'b':
+		if (ok == 1) {
+			radioStation(10);
+		}
+		else {
+			radioStation(0);
+		}
 	}
 }
 
@@ -402,14 +576,26 @@ int main(int argc, char** argv)
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
 	glutInitWindowPosition(100, 100);
 	glutInitWindowSize(800, 600);
-	glutCreateWindow("Depaseste masinile - mini game");
+	glutCreateWindow("Depaseste masinile - mini game - Don't Press B");
 	initGame();
 	l = l->getInstance();
-	//l->loadOBJ("OBJS/logan/Dacia.fbx", "logan");
-	l->loadOBJ("OBJS/e46/e46.blend", "e46");
+	l->loadOBJ("OBJS/logan/Dacia.fbx", "logan");
+	//l->loadOBJ("OBJS/e46/e46.blend", "e46");
 	glutDisplayFunc(drawScene);
 	glutReshapeFunc(changeSize);
 	audio_engine->play2D(audio_engine->getSoundSource(start_sound), false, false, true);
+	if (!radioPaused) {
+		radioPaused = !radioPaused;
+		manele->setIsPaused(false);
+		doom->setIsPaused(false);
+		populara->setIsPaused(false);
+		psychedelic->setIsPaused(false);
+		rock->setIsPaused(false);
+		piano->setIsPaused(false);
+		nfsmw->setIsPaused(false);
+		elevator->setIsPaused(false);
+		crazyf->setIsPaused(false);
+	}
 	glutTimerFunc(60, update, 0);
 	
 	glutKeyboardFunc(normalKeyboard);
