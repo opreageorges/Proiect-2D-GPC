@@ -9,7 +9,7 @@ Inamic::Inamic(irrklang::ISoundEngine* audio_engine) {
 	audio_engine->getSoundSource(claxon);
 	a_claxonat = false;
 	coliziune = 0;
-	destroyCoord = 0;
+	destroyCoord = 10;
 };
 
 double Inamic::get_x() {

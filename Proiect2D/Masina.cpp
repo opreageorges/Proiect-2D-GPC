@@ -2,7 +2,7 @@
 
 
 Masina::Masina(irrklang::ISoundEngine* audio_engine) : Inamic(audio_engine) {
-	destroyCoord = -15;
+	destroyCoord = 1;
 
 	coliziune = 7;
 

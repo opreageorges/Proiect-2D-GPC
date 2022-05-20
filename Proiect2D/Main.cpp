@@ -6,15 +6,16 @@
 * irrKlang-1.6.0\include in C\C++ -> General -> Additional Include Directories
 * irrKlang-1.6.0\lib\Win32-visualStudio in Linker -> General -> Additional Library Directories
 */
-
+#pragma warning(disable : 4996)
 #include <windows.h>
-#include <GL\freeglut.h>
+#include <GL\glew.h>
 #include <iostream>
 #include <string>
 #include <algorithm>
 #include <irrKlang.h>
 #include <ik_ISound.h>
-
+#include <vector>
+#include<glm.hpp>
 // Jucatorul
 #include "Jucator.h"
 
@@ -23,7 +24,7 @@
 #include "Masina.h"
 #include "Ambulanta.h"
 #include "Tir.h"
-
+#include "Loader.h"
 
 ////////////////////////////////////////////////////////////////////
 //	Variables
@@ -31,7 +32,7 @@
 
 // Enginul audio
 irrklang::ISoundEngine* audio_engine = irrklang::createIrrKlangDevice();
-
+Loader* l;
 // Suntele din joc
 const char* crash_sound = "Sound/car crash.wav";
 const char* main_game_sound = "Sound/drive loop.wav";
@@ -63,7 +64,6 @@ int score;
 bool paused;
 
 bool first_time_start = true;
-
 
 
 ////////////////////////////////////////////////////////////////////
@@ -124,6 +124,10 @@ void initGameColiziune() {
 //	Functionality
 ////////////////////////////////////////////////////////////////////
 
+struct puncte {
+	float x, y, z;
+};
+
 // Functie care se ocupa de logica jocului in timp ce e activ
 void game()
 {
@@ -140,6 +144,7 @@ void game()
 	}
 
 	if (juc.get_x() >= 10 && cuplu_de_betoniera_one_time) {
+		//std::cout << "test";
 		betoniera_ISound->setIsPaused(false);
 		cuplu_de_betoniera_one_time = false;
 	}
@@ -153,7 +158,7 @@ void game()
 		betoniera_ISound->setIsPaused(true);
 	}
 
-	if ((*inamic).get_x() < ((*inamic).getDestroyCoord()))
+	if ((*inamic).get_x() < juc.get_x() - ((*inamic).getDestroyCoord()))
 	{
 		score += (*inamic).getPuncte();
 		delete inamic;
@@ -242,14 +247,15 @@ void RenderString(float x, float y, void* font, const std::string sir)
 }
 
 void drawDelimiters() {
+	float culoare_linie[4] = { 0.949f, 0.953f, 0.957f , 1.0f };
 	for (int i = 0; i < 100; i++) {
 		for (int line = 0; line < 2; line++) {
-			glColor3f(0.949, 0.953, 0.957);
+			glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, culoare_linie);
 			glBegin(GL_QUADS);
-			glVertex3i(0 + i* 10, 5.5 - line * 10, 0);// Stanga jos
-			glVertex3i(0 + i * 10, 4.5 - line * 10, 0); // Dreapta jos
-			glVertex3i(5 + i * 10, 4.5 - line * 10, 0); // Dreapta sus
-			glVertex3i(5 + i * 10, 5.5 - line * 10, 0);// Stanga sus
+			glVertex3f(0 + i* 10, 5.5 - line * 10, 0.1);// Stanga jos
+			glVertex3f(0 + i * 10, 4.5 - line * 10, 0.1); // Dreapta jos
+			glVertex3f(5 + i * 10, 4.5 - line * 10, 0.1); // Dreapta sus
+			glVertex3f(5 + i * 10, 5.5 - line * 10, 0.1);// Stanga sus
 			glEnd();
 		}
 	}
@@ -257,13 +263,10 @@ void drawDelimiters() {
 
 // Functia care deseneaza imaginea de fundal
 void drawBackground() {
-	GLfloat alb[] = { 1.0, 1.0, 1.0, 0.0 };
-	GLfloat negru[] = { 0.0, 0.0, 0.0, 0.0 };
-	GLfloat rosu[] = { 1.0, 0.0, 0.0, 0.0 };
-
-
-	glColor3f(0.267, 0.267, 0.278);
-
+	glPushMatrix();
+	float culoare_asfalt[4] = { 0.267, 0.267, 0.278 , 1.0};
+	//glColor3f(0.267, 0.267, 0.278);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, culoare_asfalt);
 	// Banda Stanga
 	glBegin(GL_QUADS);
 	glVertex3i(-10, 14, 0);// Stanga jos
@@ -288,7 +291,10 @@ void drawBackground() {
 	glVertex3i(200, -5.5, 0);// Stanga sus
 	glEnd();
 
-	glColor3f(0.0, 0.604, 0.09);
+	float culoare_iarba[4] = { 0.0, 0.604, 0.09 , 1.0 };
+	
+	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, culoare_iarba);
+	//glColor3f(0.0, 0.604, 0.09);
 	// Iarba Stanga
 	glBegin(GL_QUADS);
 	glVertex3i(-10, 140, 0);// Stanga jos
@@ -308,25 +314,26 @@ void drawBackground() {
 
 	
 	drawDelimiters();
-
+	glPopMatrix();
 }
 
 // Functia care deseneaza tot
 void drawScene(void)
 {
+	
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	//glEnable(GL_DEPTH_TEST);
-	/*glEnable(GL_LIGHTING);
-	glEnable(GL_LIGHT0);
-	GLfloat pozitial0[] = { 400.0, 300.0, 5.0, 0.0 };
-	GLfloat alb[] = { 1.0, 1.0, 1.0, 0.0 };
-	GLfloat negru[] = { 0.0, 0.0, 0.0, 0.0 };
-	GLfloat gri[] = { 0.3, 0.3, 0.3, 0.0 };
-	glLightfv(GL_LIGHT0, GL_POSITION, pozitial0);
-	glLightfv(GL_LIGHT0, GL_AMBIENT, alb);
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, alb);
-	glLightfv(GL_LIGHT0, GL_SPECULAR, negru);*/
+	glClearColor(0.1f, 0.1f, 0.1f, 1.f);
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_LIGHTING);
+	
+	GLfloat lightpos[] = { -20, 0, 1, 1.0 };
 
+	//glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambcolor);
+	glEnable(GL_LIGHT0);
+	glEnable(GL_NORMALIZE);
+	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
+	glColorMaterial(GL_FRONT_AND_BACK, GL_DIFFUSE);
+	glLightfv(GL_LIGHT0, GL_POSITION, lightpos);
 
 	glLoadIdentity();
 	gluLookAt(0 + juc.get_x(), 0 + juc.get_y(), 2,
@@ -334,7 +341,10 @@ void drawScene(void)
 		0.0f, 0.0f, 30.0f);
 
 	drawBackground();
-
+	
+	//glPushMatrix();
+	l->draw("logan", glm::vec3(8, 0, 3), glm::vec3(.5, .5, .5));
+	//glPopMatrix();
 	if (ok == 0) {
 		RenderString(250.0f, 200.0f, GLUT_BITMAP_8_BY_13, std::string("GAME OVER"));
 	}
@@ -373,7 +383,7 @@ void changeSize(int w, int h)
 
 	// Reset Matrix
 	glLoadIdentity();
-	RenderString(0, 0, GLUT_BITMAP_TIMES_ROMAN_24, std::string("Depaseste masinile!     Scor: ") + std::to_string(score));
+	/*RenderString(0, 0, GLUT_BITMAP_TIMES_ROMAN_24, std::string("Depaseste masinile!     Scor: ") + std::to_string(score));*/
 	// Set the viewport to be the entire window
 	glViewport(0, 0, w, h);
 
@@ -386,21 +396,26 @@ void changeSize(int w, int h)
 
 int main(int argc, char** argv)
 {
+	glewExperimental = GL_TRUE;
 	glutInit(&argc, argv);
+	
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
 	glutInitWindowPosition(100, 100);
 	glutInitWindowSize(800, 600);
 	glutCreateWindow("Depaseste masinile - mini game");
 	initGame();
+	l = l->getInstance();
+	//l->loadOBJ("OBJS/logan/Dacia.fbx", "logan");
+	l->loadOBJ("OBJS/e46/e46.blend", "e46");
 	glutDisplayFunc(drawScene);
 	glutReshapeFunc(changeSize);
-	//audio_engine->play2D(audio_engine->getSoundSource(start_sound), false, false, true);
-	
+	audio_engine->play2D(audio_engine->getSoundSource(start_sound), false, false, true);
 	glutTimerFunc(60, update, 0);
 	
 	glutKeyboardFunc(normalKeyboard);
 	glutSpecialFunc(keyboard);
 	
 	glutMainLoop();
+
 	audio_engine->drop();
 }
