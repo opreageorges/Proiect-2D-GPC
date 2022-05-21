@@ -9,12 +9,13 @@ class Masina :
 {
 private:
     float r, g, b;
+    
 public:
     Masina(irrklang::ISoundEngine* audio_engine);
 
     void misca(double);
     void draw();
-
+    
 };
 
 #endif

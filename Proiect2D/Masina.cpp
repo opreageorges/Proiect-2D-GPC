@@ -17,11 +17,16 @@ void Masina::misca(double viteza) {
 
 void Masina::draw() {
 	glPushMatrix();
-	glColor3f(0, 0, 1);
+
 	//glBegin(GL_POLYGON);
-	glTranslatef(x, y[0], 0.2);
-	glScalef(3,1,.3);
-	glutSolidCube(1);
+	glTranslatef(x, y[0], 0.6);
+	glScalef(.5, .5, .5);
+
+	glRotatef(90, 1, 0, 0);
+	glRotatef(90, 0, 1, 0);
+
+	l->draw("logan", glm::vec3(), glm::vec3(.5, .5, .5), glm::vec4(90, 1, 0, 0));
+	glRotated(90, 0, 0, 1);
 	//glVertex3f(3.5 + x, 0.4 + y[0], 0.1);// Stanga jos
 	//glVertex3f(3.5 + x, -0.4 + y[0], 0.1); // Dreapta jos
 	//glVertex3f(5.5 + x, -0.4 + y[0], 0.7); // Dreapta sus
