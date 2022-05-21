@@ -23,7 +23,7 @@ class Loader
 	void color4_to_float4(const aiColor4D* c, float f[4]);
 public:
 	void loadOBJ(std::string path, std::string nume);
-	void draw(std::string nume, glm::vec3 locatie, glm::vec3 scala, glm::vec4 rotatie = { -1, -1, -1, -1 }, glm::vec4 culoare = { -1, -1, -1 , -1});
+	void draw(std::string nume);
 	static Loader* getInstance();
 
 };

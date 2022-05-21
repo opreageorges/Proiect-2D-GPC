@@ -59,7 +59,7 @@ void Jucator::draw() {
 	glRotatef(90, 1, 0, 0);
 	glRotatef(90, 0, 1, 0);
 	
-	l->draw("logan", glm::vec3(), glm::vec3(.5, .5, .5), glm::vec4(90, 1, 0, 0));
+	l->draw("logan");
 	glRotated(90, 0, 0, 1);
 	glPopMatrix();
 }

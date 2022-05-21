@@ -179,7 +179,7 @@ void Loader::loadOBJ(std::string path, std::string nume) {
 
 }
 
-void Loader::draw(std::string nume, glm::vec3 locatie, glm::vec3 scala, glm::vec4 rotatie, glm::vec4 culoare) {
+void Loader::draw(std::string nume) {
 	GLuint objlist = this->loadedOBJS.at(nume);
 	glPushMatrix();
 	glCallList(objlist);
