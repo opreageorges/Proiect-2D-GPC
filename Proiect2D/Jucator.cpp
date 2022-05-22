@@ -51,15 +51,31 @@ void Jucator::set_Loader(Loader *l) {
 	this->l = l;
 }
 
-void Jucator::draw() {
+void Jucator::draw(int alege) {
 	glPushMatrix();
-	glTranslatef(5 + x, y, 0.6);
-	glScalef(.5, .5, .5);
+	switch (alege)
+	{
+	case 0:
+		glTranslatef(5 + x, y, 0.6);
+		glScalef(.5, .5, .5);
+
+		glRotatef(90, 1, 0, 0);
+		glRotatef(90, 0, 1, 0);
+
+		l->draw("logan");
+		glRotated(90, 0, 0, 1);
+		break;
+	case 1:
+		glTranslatef(5 + x, y, 0.6);
+		glScalef(.007, .007, .007);
+
+		glRotatef(90, 1, 0, 0);
+		glRotatef(90, 0, 1, 0);
+
+		l->draw("e46");
+		glRotated(90, 0, 0, 1);
+		break;
+	}
 	
-	glRotatef(90, 1, 0, 0);
-	glRotatef(90, 0, 1, 0);
-	
-	l->draw("logan");
-	glRotated(90, 0, 0, 1);
 	glPopMatrix();
 }

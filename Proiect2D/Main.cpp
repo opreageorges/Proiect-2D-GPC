@@ -48,7 +48,7 @@ irrklang::ISound* main_game_sound_ISound;
 irrklang::ISound* betoniera_ISound = audio_engine->play2D(audio_engine->getSoundSource(cuplu_de_betoniera), false, true, true);
 
 //Radio
-#define doNotLoadRadioBecauseItTakesAges false;
+#define doNotLoadRadioBecauseItTakesAges true;
 bool radioPaused = false;
 
 #if !doNotLoadRadioBecauseItTakesAges
@@ -76,7 +76,7 @@ bool radioPaused = false;
 
 // Numarul maxim de framuri pe secunda
 int fps = 60;
-
+int car = 0;
 // Pentru calculul de fps 
 int initial_time = (int)time(NULL);
 int frames = 0;
@@ -543,7 +543,7 @@ void drawScene(void)
 
 	drawBackground();
 
-	juc.draw();
+	juc.draw(car);
 	(*inamic).draw();
 	
 	glDisable(GL_DEPTH);
@@ -584,6 +584,22 @@ void drawScene(void)
 }
 
 ////////////////////////////////////////////////////////////////////
+//	Menu
+////////////////////////////////////////////////////////////////////
+
+void schimbamasina(int ceva) {
+	car = ceva;
+}
+
+void callback_Main(int key)
+{
+	if (key == 0)
+	{
+		exit(0);
+	}
+}
+
+////////////////////////////////////////////////////////////////////
 //	Main
 ////////////////////////////////////////////////////////////////////
 
@@ -605,7 +621,7 @@ int main(int argc, char** argv)
 	l->loadOBJ("OBJS/Ambulanta/Ambulanta.obj", "ambulanta");
 	l->loadOBJ("OBJS/Bikers/Biker.fbx", "bikers");
 	l->loadOBJ("OBJS/forest/Forest2.obj", "padure");
-	//l->loadOBJ("OBJS/e46/e46.obj", "logan");
+	l->loadOBJ("OBJS/e46/e46.fbx", "e46");
 	glutDisplayFunc(drawScene);
 	glutReshapeFunc(changeSize);
 	
@@ -629,6 +645,17 @@ int main(int argc, char** argv)
 	glutKeyboardFunc(normalKeyboard);
 	glutSpecialFunc(keyboard);
 	
+	int menuBackground, menuMain;
+	menuBackground = glutCreateMenu(schimbamasina);
+	glutAddMenuEntry("Logan", 0);
+	glutAddMenuEntry("E46", 1);
+
+	menuMain = glutCreateMenu(callback_Main);
+
+	glutAddSubMenu("Alege masina ", menuBackground);
+	glutAddMenuEntry("Iesire ", 0);
+	glutAttachMenu(GLUT_RIGHT_BUTTON);
+
 	glutMainLoop();
 
 	audio_engine->drop();

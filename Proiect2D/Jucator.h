@@ -24,7 +24,7 @@ public:
 	void miscaStanga(void);
 
 	// Functia de desenare
-	void draw();
+	void draw(int alege);
 
 	void set_Loader(Loader* l);
 };
