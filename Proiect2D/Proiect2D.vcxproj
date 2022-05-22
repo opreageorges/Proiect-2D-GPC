@@ -88,12 +88,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\MihaiPC\Downloads\glm-0.9.9.8\glm\glm;\Downloads\glm-0.9.9.8\glm\glm;C:\GL\assimpv2\build\include;C:\GL\assimpv2\include;C:\GL\freeglut\include;C:\GL\glew\include;C:\GL\irrKlang-1.6.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Programe\Microsoft Visual Studio\GL\assimp\assimp-5.2.0\build\include;D:\Programe\Microsoft Visual Studio\GL\glm;D:\Programe\Microsoft Visual Studio\GL\assimp\assimp-5.2.0\include;C:\Grafica\OpenGL\irrKlang-1.6.0\include;C:\GL\freeglut\include;C:\GL\glew\include;C:\GL\irrKlang-1.6.0\include;C:\Grafica\OpenGL\freeglut\include;C:\Grafica\OpenGL\glew\include;D:\Programe\Microsoft Visual Studio\GL\glew-2.1.0\include;D:\Programe\Microsoft Visual Studio\GL\freeglut\include;D:\Programe\Microsoft Visual Studio\GL\irrKlang-1.6.0\include;D:\Programe\Microsoft Visual Studio\GL\DevIL Windows SDK\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\GL\irrKlang-1.6.0\lib\Win32-visualStudio;C:\GL\assimpv2\build\lib\Debug;C:\GL\glew\lib\Release\Win32;C:\GL\freeglut\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\Programe\Microsoft Visual Studio\GL\assimp\assimp-5.2.0\build\lib\Debug;C:\Grafica\OpenGL\irrKlang-1.6.0\lib\Win32-visualStudio;C:\GL\irrKlang-1.6.0\lib\Win32-visualStudio;C:\GL\glew\lib\Release\Win32;C:\GL\freeglut\lib;C:\Grafica\OpenGL\freeglut\lib;C:\Grafica\OpenGL\glew\lib\Release\Win32;D:\Programe\Microsoft Visual Studio\GL\glew-2.1.0\lib\Release\Win32;D:\Programe\Microsoft Visual Studio\GL\freeglut\lib;D:\Programe\Microsoft Visual Studio\GL\irrKlang-1.6.0\lib\Win32-visualStudio;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>freeglut.lib;glew32.lib;opengl32.lib;irrKlang.lib;assimp-vc141-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -119,12 +119,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\MihaiPC\Downloads\glm-0.9.9.8\glm\glm;C:\GL\assimpv2\build\include;C:\GL\assimpv2\include;D:\Programe\Microsoft Visual Studio\GL\stb;D:\Programe\Microsoft Visual Studio\GL\glm;C:\GL\freeglut\include;C:\GL\glew\include;C:\GL\irrKlang-1.6.0\include;D:\Programe\Microsoft Visual Studio\GL\glew-2.1.0\include;D:\Programe\Microsoft Visual Studio\GL\freeglut\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Programe\Microsoft Visual Studio\GL\stb;D:\Programe\Microsoft Visual Studio\GL\glm;D:\Programe\Microsoft Visual Studio\GL\assimp-3.1.1-win-binaries\include\assimp;C:\GL\freeglut\include;C:\GL\glew\include;C:\GL\irrKlang-1.6.0\include;D:\Programe\Microsoft Visual Studio\GL\glew-2.1.0\include;D:\Programe\Microsoft Visual Studio\GL\freeglut\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\GL\assimpv2\build\lib\Debug;D:\Programe\Microsoft Visual Studio\GL\assimp-3.1.1-win-binaries\lib32;C:\GL\irrKlang-1.6.0\lib\Win32-visualStudio;C:\GL\glew\lib\Release\Win32;C:\GL\freeglut\lib;D:\Programe\Microsoft Visual Studio\GL\glew-2.1.0\lib\Release\Win32;D:\Programe\Microsoft Visual Studio\GL\freeglut\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\Programe\Microsoft Visual Studio\GL\assimp-3.1.1-win-binaries\lib32;C:\GL\irrKlang-1.6.0\lib\Win32-visualStudio;C:\GL\glew\lib\Release\Win32;C:\GL\freeglut\lib;D:\Programe\Microsoft Visual Studio\GL\glew-2.1.0\lib\Release\Win32;D:\Programe\Microsoft Visual Studio\GL\freeglut\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>freeglut.lib;glew32.lib;opengl32.lib;irrKlang.lib;assimp.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
