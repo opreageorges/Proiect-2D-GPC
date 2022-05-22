@@ -483,7 +483,7 @@ void drawBackground() {
 
 	float culoare_iarba[4] = { 0.0, 0.604, 0.09 , 1.0 };
 	
-	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, culoare_iarba);
+	//glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, culoare_iarba);
 	//glColor3f(0.0, 0.604, 0.09);
 	// Iarba Stanga
 	glPushMatrix();
@@ -524,7 +524,7 @@ void drawScene(void)
 {
 	
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glClearColor(0.1f, 0.1f, 0.1f, 1.f);
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHTING);
 	
@@ -601,11 +601,11 @@ int main(int argc, char** argv)
 
 	l->loadOBJ("OBJS/logan/Dacia.fbx", "logan");
 	//l->loadOBJ("OBJS/Inamic/Inamic.fbx", "inamic");
-	l->loadOBJ("OBJS/Tir/Tir.fbx", "tir");
-	l->loadOBJ("OBJS/Ambulanta/Ambulanta.fbx", "ambulanta");
+	l->loadOBJ("OBJS/Tir/Tir3.fbx", "tir");
+	l->loadOBJ("OBJS/Ambulanta/Ambulanta.obj", "ambulanta");
 	l->loadOBJ("OBJS/Bikers/Biker.fbx", "bikers");
 	l->loadOBJ("OBJS/forest/Forest2.obj", "padure");
-	//l->loadOBJ("OBJS/e46/e46.blend", "e46");
+	//l->loadOBJ("OBJS/e46/e46.obj", "logan");
 	glutDisplayFunc(drawScene);
 	glutReshapeFunc(changeSize);
 	

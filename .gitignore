@@ -361,3 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/Proiect2D/OBJS/material.lib
+/Proiect2D/OBJS/Ambulanta/Ambulanta2.fbx
+/Proiect2D/OBJS/Ambulanta/Ambulanta3.fbx
