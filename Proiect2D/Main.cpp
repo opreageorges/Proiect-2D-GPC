@@ -94,22 +94,22 @@ bool first_time_start = true;
 
 
 Inamic* genereazaInamic() {
-
+	Inamic* in;
 	int randomizator = rand() % 100;
 	if (randomizator < 400) {
-		return new Masina(audio_engine);
+		in = new Masina(audio_engine);
 	}
 	else if (randomizator < 70) {
-		return new Tir(audio_engine);
+		in = new Tir(audio_engine);
 	}
 	else if (randomizator < 90) {
-		return new Ambulanta(audio_engine);
+		in = new Ambulanta(audio_engine);
 	}
 	else {
-		return new Bikers(audio_engine);
+		in = new Bikers(audio_engine);
 	}
-	(*inamic).set_Loader(l);
-
+	(*in).set_Loader(l);
+	return in;
 }
 
 //Radio

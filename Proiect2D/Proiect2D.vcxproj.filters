@@ -53,16 +53,7 @@
     <ClCompile Include="Tir.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Main3.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Loader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Main2.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Main1.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -89,9 +80,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Loader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="stb_image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
