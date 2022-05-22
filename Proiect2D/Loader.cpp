@@ -49,10 +49,10 @@ void Loader::apply_material(const aiMaterial* mtl)
 		color4_to_float4(&diffuse, c);
 	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, c);
 
-	set_float4(c, 0.0f, 0.0f, 0.0f, 1.0f);
+	/*set_float4(c, 0.0f, 0.0f, 0.0f, 1.0f);
 	if (AI_SUCCESS == aiGetMaterialColor(mtl, AI_MATKEY_COLOR_SPECULAR, &specular))
 		color4_to_float4(&specular, c);
-	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, c);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, c);*/
 
 	set_float4(c, 0.2f, 0.2f, 0.2f, 1.0f);
 	if (AI_SUCCESS == aiGetMaterialColor(mtl, AI_MATKEY_COLOR_AMBIENT, &ambient))
@@ -111,12 +111,12 @@ void Loader::recursive_render(const aiScene* sc, const aiNode* nd)
 
 		apply_material(sc->mMaterials[mesh->mMaterialIndex]);
 
-		if (mesh->mNormals == NULL) {
+		/*if (mesh->mNormals == NULL) {
 			glDisable(GL_LIGHTING);
 		}
 		else {
 			glEnable(GL_LIGHTING);
-		}
+		}*/
 
 		for (t = 0; t < mesh->mNumFaces; ++t) {
 			const aiFace* face = &mesh->mFaces[t];

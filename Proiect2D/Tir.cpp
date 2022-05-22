@@ -27,7 +27,7 @@ void Tir::draw() {
 	glRotatef(90, 1, 0, 0);
 	glRotatef(90, 0, 1, 0);
 
-	l->draw("tir", glm::vec3(), glm::vec3(.5, .5, .5), glm::vec4(90, 1, 0, 0));
+	l->draw("tir");
 	glRotated(90, 0, 0, 1);
 	//glVertex3f(3.5 + x, 0.4 + y[0], 0.1);// Stanga jos
 	//glVertex3f(3.5 + x, -0.4 + y[0], 0.1); // Dreapta jos

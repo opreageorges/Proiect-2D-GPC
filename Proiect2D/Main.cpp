@@ -6,6 +6,7 @@
 * irrKlang-1.6.0\include in C\C++ -> General -> Additional Include Directories
 * irrKlang-1.6.0\lib\Win32-visualStudio in Linker -> General -> Additional Library Directories
 */
+
 #pragma warning(disable : 4996)
 #include <windows.h>
 #include <GL\glew.h>
@@ -30,9 +31,12 @@
 //	Variables
 ////////////////////////////////////////////////////////////////////
 
+// Obiectul care incaraca modele 3D
+Loader* l;
+
 // Enginul audio
 irrklang::ISoundEngine* audio_engine = irrklang::createIrrKlangDevice();
-Loader* l;
+
 // Suntele din joc
 const char* crash_sound = "Sound/car crash.wav";
 const char* main_game_sound = "Sound/drive loop.wav";
@@ -44,26 +48,31 @@ irrklang::ISound* main_game_sound_ISound;
 irrklang::ISound* betoniera_ISound = audio_engine->play2D(audio_engine->getSoundSource(cuplu_de_betoniera), false, true, true);
 
 //Radio
+#define doNotLoadRadioBecauseItTakesAges false;
 bool radioPaused = false;
-const char* maneleStation = "Sound/Manele Station.mp3";
-const char* doomStation = "Sound/Doom Station.mp3";
-const char* popularaStation = "Sound/Populare Station.mp3";
-const char* psychedelicStation = "Sound/Psychedelic Trance Hallucinations Station.mp3";
-const char* rockStation = "Sound/Rock Station.mp3";
-const char* pianoStation = "Sound/Piano Station.mp3";
-const char* nfsmwStation = "Sound/NFS Most Wanted Station.mp3";
-const char* elevatorStation = "Sound/Elevator Station.mp3";
-const char* crazyfStation = "Sound/Crazy Frog Station.mp3";
 
-irrklang::ISound* manele = audio_engine->play2D(maneleStation, true, true, true);
-irrklang::ISound* doom = audio_engine->play2D(doomStation, true, true, true);
-irrklang::ISound* populara = audio_engine->play2D(popularaStation, true, true, true);
-irrklang::ISound* psychedelic = audio_engine->play2D(psychedelicStation, true, true, true);
-irrklang::ISound* rock = audio_engine->play2D(rockStation, true, true, true);
-irrklang::ISound* piano = audio_engine->play2D(pianoStation, true, true, true);
-irrklang::ISound* nfsmw = audio_engine->play2D(nfsmwStation, true, true, true);
-irrklang::ISound* elevator = audio_engine->play2D(elevatorStation, true, true, true);
-irrklang::ISound* crazyf = audio_engine->play2D(crazyfStation, true, true, true);
+#if !doNotLoadRadioBecauseItTakesAges
+	const char* maneleStation = "Sound/Manele Station.mp3";
+	const char* doomStation = "Sound/Doom Station.mp3";
+	const char* popularaStation = "Sound/Populare Station.mp3";
+	const char* psychedelicStation = "Sound/Psychedelic Trance Hallucinations Station.mp3";
+	const char* rockStation = "Sound/Rock Station.mp3";
+	const char* pianoStation = "Sound/Piano Station.mp3";
+	const char* nfsmwStation = "Sound/NFS Most Wanted Station.mp3";
+	const char* elevatorStation = "Sound/Elevator Station.mp3";
+	const char* crazyfStation = "Sound/Crazy Frog Station.mp3";
+
+
+	irrklang::ISound* manele = audio_engine->play2D(maneleStation, true, true, true);
+	irrklang::ISound* doom = audio_engine->play2D(doomStation, true, true, true);
+	irrklang::ISound* populara = audio_engine->play2D(popularaStation, true, true, true);
+	irrklang::ISound* psychedelic = audio_engine->play2D(psychedelicStation, true, true, true);
+	irrklang::ISound* rock = audio_engine->play2D(rockStation, true, true, true);
+	irrklang::ISound* piano = audio_engine->play2D(pianoStation, true, true, true);
+	irrklang::ISound* nfsmw = audio_engine->play2D(nfsmwStation, true, true, true);
+	irrklang::ISound* elevator = audio_engine->play2D(elevatorStation, true, true, true);
+	irrklang::ISound* crazyf = audio_engine->play2D(crazyfStation, true, true, true);
+#endif
 
 // Numarul maxim de framuri pe secunda
 int fps = 60;
@@ -115,6 +124,7 @@ Inamic* genereazaInamic() {
 
 //Radio
 void radioStation(int station) {
+#if !doNotLoadRadioBecauseItTakesAges
 	switch (station)
 	{
 	case 0:
@@ -179,6 +189,7 @@ void radioStation(int station) {
 	default:
 		break;
 	}
+#endif
 }
 
 // Initializeaza toate variabilele de la inceputul jocului (Util pentru restart)
@@ -211,8 +222,6 @@ void initGameColiziune() {
 	paused = false;
 }
 
-
-
 ////////////////////////////////////////////////////////////////////
 //	Functionality
 ////////////////////////////////////////////////////////////////////
@@ -221,7 +230,7 @@ void initGameColiziune() {
 void game()
 {
 	std::vector<double> enemy_y = (*inamic).get_y();
-	if (std::count(enemy_y.begin(), enemy_y.end(), juc.get_y()) > 0 && ((*inamic).get_x() < juc.get_x() + (*inamic).get_coliziune() && (*inamic).get_x() > juc.get_x() - (*inamic).get_coliziune())) {
+	if (std::count(enemy_y.begin(), enemy_y.end(), juc.get_y()) > 0 && ((*inamic).get_x() < juc.get_x() + (*inamic).get_coliziune() && (*inamic).get_x() > juc.get_x() - (*inamic).get_coliziune() + 10)) {
 		ok = 0;
 		main_game_sound_ISound->stop();
 		betoniera_ISound->stop();
@@ -382,6 +391,30 @@ void normalKeyboard(unsigned char key, int x, int y)
 }
 
 
+void changeSize(int w, int h)
+{
+
+	// Prevent a divide by zero, when window is too short
+	// (you cant make a window of zero width).
+	if (h == 0)
+		h = 1;
+	float ratio = w * 1.0 / h;
+	
+	// Use the Projection Matrix
+	glMatrixMode(GL_PROJECTION);
+	
+	// Reset Matrix
+	glLoadIdentity();
+	
+	// Set the viewport to be the entire window
+	glViewport(0, 0, w, h);
+
+	// Set the correct perspective.
+	gluPerspective(45.0f, ratio, 0.1f, 100.0f);
+
+	// Get Back to the Modelview
+	glMatrixMode(GL_MODELVIEW);
+}
 
 ////////////////////////////////////////////////////////////////////
 //	Update functions
@@ -401,21 +434,21 @@ void update(int) {
 	glutTimerFunc(1000 / fps, update, 0);
 }
 
-
-
 ////////////////////////////////////////////////////////////////////
 //	Draw functions
 ////////////////////////////////////////////////////////////////////
 
 // Scrie un text pe ecran
 void RenderString(float x, float y, void* font, const std::string sir)
-{	
+{
 	int lungime = sir.length();
-	const unsigned char *caster = (const unsigned char*)sir.c_str();;
-
-	glColor3f(0.0f, 1.0f, 0.0f);
+	const unsigned char* caster = (const unsigned char*)sir.c_str();;
+	glPushMatrix();
+	//glClear(GL_COLOR_BUFFER_BIT);
+	glColor3f(0.0f, 0.0f, 1.0f);
 	glRasterPos2f(x, y);
 	glutBitmapString(font, (const unsigned char*)caster);
+	glPopMatrix();
 }
 
 // Functia care deseneaza imaginea de fundal
@@ -453,20 +486,22 @@ void drawBackground() {
 	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, culoare_iarba);
 	//glColor3f(0.0, 0.604, 0.09);
 	// Iarba Stanga
-	glBegin(GL_QUADS);
-	glVertex3i(-10, 140, 0);// Stanga jos
-	glVertex3i(-10, 14, 0); // Dreapta jos
-	glVertex3i(200, 14, 0); // Dreapta sus
-	glVertex3i(200, 140, 0);// Stanga sus
-	glEnd();
+	glPushMatrix();
+	glTranslated(0, 21, 0.2);
+	glRotated(90, 1, 0, 0);
+	glRotated(90, 0, 1, 0);
+
+	l->draw("padure");
+	glPopMatrix();
 
 	// Iarba Dreapta
-	glBegin(GL_QUADS);
-	glVertex3i(-10, -14, 0);// Stanga jos
-	glVertex3i(-10, -140, 0); // Dreapta jos
-	glVertex3i(200, -140, 0); // Dreapta sus
-	glVertex3i(200, -14, 0);// Stanga sus
-	glEnd();
+	glPushMatrix();
+	glTranslated(0, -21, 0.2);
+	glRotated(90, 1, 0, 0);
+	glRotated(90, 0, 1, 0);
+
+	l->draw("padure");
+	glPopMatrix();
 
 	float culoare_linie[4] = { 0.949f, 0.953f, 0.957f , 1.0f };
 	for (int i = 0; i < 100; i++) {
@@ -507,17 +542,33 @@ void drawScene(void)
 		0.0f, 0.0f, 30.0f);
 
 	drawBackground();
-	
-	//glPushMatrix();
-	
-	//glPopMatrix();
-	if (ok == 0) {
-		RenderString(250.0f, 200.0f, GLUT_BITMAP_8_BY_13, std::string("GAME OVER"));
-	}
 
 	juc.draw();
 	(*inamic).draw();
+	
+	glDisable(GL_DEPTH);
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	gluOrtho2D(-100, 100, -100, 100);
+	
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
+	// Zona in care poti desena chestii 2D pentru HUD
+	
+	if (ok == 0) {
+		RenderString(0.0f, 0.0f, GLUT_BITMAP_TIMES_ROMAN_24, std::string("GAME OVER"));
+	}
 
+	RenderString(-100, -100, GLUT_BITMAP_TIMES_ROMAN_24, std::string("Depaseste masinile!     Scor: ") + std::to_string(score));
+
+	// Se termina zona
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
+	glPopMatrix();
+	glEnable(GL_DEPTH);
 	glutSwapBuffers();
 	//glFlush();
 
@@ -535,30 +586,6 @@ void drawScene(void)
 ////////////////////////////////////////////////////////////////////
 //	Main
 ////////////////////////////////////////////////////////////////////
-void changeSize(int w, int h)
-{
-
-	// Prevent a divide by zero, when window is too short
-	// (you cant make a window of zero width).
-	if (h == 0)
-		h = 1;
-	float ratio = w * 1.0 / h;
-
-	// Use the Projection Matrix
-	glMatrixMode(GL_PROJECTION);
-
-	// Reset Matrix
-	glLoadIdentity();
-	/*RenderString(0, 0, GLUT_BITMAP_TIMES_ROMAN_24, std::string("Depaseste masinile!     Scor: ") + std::to_string(score));*/
-	// Set the viewport to be the entire window
-	glViewport(0, 0, w, h);
-
-	// Set the correct perspective.
-	gluPerspective(45.0f, ratio, 0.1f, 100.0f);
-
-	// Get Back to the Modelview
-	glMatrixMode(GL_MODELVIEW);
-}
 
 int main(int argc, char** argv)
 {
@@ -573,16 +600,17 @@ int main(int argc, char** argv)
 	initGame();
 
 	l->loadOBJ("OBJS/logan/Dacia.fbx", "logan");
-	l->loadOBJ("OBJS/e46/e46.blend", "logan");
-	l->loadOBJ("OBJS/Inamic/Inamic.fbx", "inamic");
+	//l->loadOBJ("OBJS/Inamic/Inamic.fbx", "inamic");
 	l->loadOBJ("OBJS/Tir/Tir.fbx", "tir");
 	l->loadOBJ("OBJS/Ambulanta/Ambulanta.fbx", "ambulanta");
 	l->loadOBJ("OBJS/Bikers/Biker.fbx", "bikers");
+	l->loadOBJ("OBJS/forest/Forest2.obj", "padure");
 	//l->loadOBJ("OBJS/e46/e46.blend", "e46");
 	glutDisplayFunc(drawScene);
 	glutReshapeFunc(changeSize);
 	
 	audio_engine->play2D(audio_engine->getSoundSource(start_sound), false, false, true);
+#if !doNotLoadRadioBecauseItTakesAges
 	if (!radioPaused) {
 		radioPaused = !radioPaused;
 		manele->setIsPaused(false);
@@ -595,6 +623,7 @@ int main(int argc, char** argv)
 		elevator->setIsPaused(false);
 		crazyf->setIsPaused(false);
 	}
+#endif
 	glutTimerFunc(60, update, 0);
 	
 	glutKeyboardFunc(normalKeyboard);
