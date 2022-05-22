@@ -96,7 +96,7 @@ bool first_time_start = true;
 Inamic* genereazaInamic() {
 	Inamic* in;
 	int randomizator = rand() % 100;
-	if (randomizator < 400) {
+	if (randomizator < 40) {
 		in = new Masina(audio_engine);
 	}
 	else if (randomizator < 70) {
@@ -110,6 +110,7 @@ Inamic* genereazaInamic() {
 	}
 	(*in).set_Loader(l);
 	return in;
+
 }
 
 //Radio
@@ -573,6 +574,10 @@ int main(int argc, char** argv)
 
 	l->loadOBJ("OBJS/logan/Dacia.fbx", "logan");
 	l->loadOBJ("OBJS/e46/e46.blend", "logan");
+	l->loadOBJ("OBJS/Inamic/Inamic.fbx", "inamic");
+	l->loadOBJ("OBJS/Tir/Tir.fbx", "tir");
+	l->loadOBJ("OBJS/Ambulanta/Ambulanta.fbx", "ambulanta");
+	l->loadOBJ("OBJS/Bikers/Biker.fbx", "bikers");
 	//l->loadOBJ("OBJS/e46/e46.blend", "e46");
 	glutDisplayFunc(drawScene);
 	glutReshapeFunc(changeSize);

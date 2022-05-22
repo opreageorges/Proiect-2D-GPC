@@ -1,10 +1,9 @@
 #include "Tir.h"
 
 Tir::Tir(irrklang::ISoundEngine* audio_engine) : Inamic(audio_engine) {
-	x += 100;
-	destroyCoord = -200;
+	destroyCoord = 1;
 
-	coliziune = 135;
+	coliziune = 7;
 
 	claxon = "Sound/claxon_tir.wav";
 	audio_engine->getSoundSource(claxon);
@@ -15,46 +14,24 @@ Tir::Tir(irrklang::ISoundEngine* audio_engine) : Inamic(audio_engine) {
 }
 
 void Tir::misca(double viteza) {
-	x -= (viteza - 2);
+	x -= viteza;
 }
 
 void Tir::draw() {
-	//glPushMatrix();
-	//glTranslated(x-2, y[0], 0.0);
-	//
-	////fata tirului - gri
-	//glColor3f(0.043, 0.039, 0.039);
-	//glRecti(-20, -27, 10, 27);
+	glPushMatrix();
 
+	//glBegin(GL_POLYGON);
+	glTranslatef(x, y[0], 0.6);
+	glScalef(.01, .01, .01);
 
-	////mijlocul tirului 
-	//glColor3f(r, g, b);
-	//glRecti(10, 32, 140, -32);
+	glRotatef(90, 1, 0, 0);
+	glRotatef(90, 0, 1, 0);
 
-	////spatele tirului  - gri
-	//glColor3f(0.043, 0.039, 0.039);
-	//glRecti(140, -27, 150, 27);
-
-	////rotile
-
-	//glColor3f(0, 0, 0);
-	//glRecti(15, -32, 35, -38);
-
-
-	//glColor3f(0, 0, 0);
-	//glRecti(40, -32, 60, -38);
-
-	//glColor3f(0, 0, 0);
-	//glRecti(90, -32, 128, -38);
-
-
-	//glColor3f(0, 0, 0);
-	//glRecti(15, 38, 35, 32);
-
-	//glColor3f(0, 0, 0);
-	//glRecti(40, 38, 60, 32);
-
-	//glColor3f(0, 0, 0);
-	//glRecti(90, 38, 128, 32);
-	//glPopMatrix();
+	l->draw("tir", glm::vec3(), glm::vec3(.5, .5, .5), glm::vec4(90, 1, 0, 0));
+	glRotated(90, 0, 0, 1);
+	//glVertex3f(3.5 + x, 0.4 + y[0], 0.1);// Stanga jos
+	//glVertex3f(3.5 + x, -0.4 + y[0], 0.1); // Dreapta jos
+	//glVertex3f(5.5 + x, -0.4 + y[0], 0.7); // Dreapta sus
+	//glVertex3f(5.5 + x, 0.4 + y[0], 0.7);// Stanga sus
+	glPopMatrix();
 };

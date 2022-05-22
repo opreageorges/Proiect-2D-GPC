@@ -1,60 +1,35 @@
 #include "Ambulanta.h"
 Ambulanta::Ambulanta(irrklang::ISoundEngine* audio_engine) : Inamic(audio_engine) {
-	coliziune = 40;
+	coliziune = 7;
 
 	claxon = "Sound/claxon_ambulanta.wav";
 	audio_engine->getSoundSource(claxon);
 
 	puncte_generate = 150;
-	destroyCoord = -250;
+	destroyCoord = 1;
 }
 
 void Ambulanta::misca(double viteza) {
-	x -= (3 + viteza);
+	x -= viteza;
 }
 
 
 void Ambulanta::draw() {
-	//glPushMatrix();
-	//// sasiu
-	//glTranslated(x-80, y[0] - 40,0);
-	//glRotated(90, 0, 0, 1);
+	glPushMatrix();
 
-	//glColor3f(1, 0, 0);
-	//glRectf(20, -200, 80, -155);
-	//glColor3f(1, 1, 1);
-	//glRectf(20, -155, 80, -115);
-	//glColor3f(1, 0, 0);
-	//glRectf(20, -115, 80, -90);
+	//glBegin(GL_POLYGON);
+	glTranslatef(x, y[0], 0.6);
+	glScalef(.5, .5, .5);
 
-	//// faruri
-	//glColor3f(0.8f, 0.5f, 0.0f);
-	//glRectf(25.0f, -90.0f, 35.0f, -85.0f);
-	//glColor3f(0.8f, 0.5f, 0.0f);
-	//glRectf(65.0f, -90.0f, 75.0f, -85.0f);
+	glRotatef(90, 1, 0, 0);
+	glRotatef(90, 0, 1, 0);
 
-	//// GIROFAR
-
-	//glTranslated(50, -135, 0);
-	//glRotated(rotatie, 0, 0, 1);
-	//glTranslated(-50, 135, 0);
-
-	////girofar
-	//glColor4f(0, 0, 1, 0.5);
-	//glBegin(GL_TRIANGLES);
-
-	//glVertex2f(10, -115);
-	//glVertex2f(50, -135);
-	//glVertex2f(10, -155);
-	//
-	//glVertex2f(50, -135);
-	//glVertex2f(90, -115);
-	//glVertex2f(90, -155);
-	//
-	//glEnd();
-
-	//glPopMatrix();
-
-	//rotatie += 15;
+	l->draw("ambulanta", glm::vec3(), glm::vec3(.5, .5, .5), glm::vec4(90, 1, 0, 0));
+	glRotated(90, 0, 0, 1);
+	//glVertex3f(3.5 + x, 0.4 + y[0], 0.1);// Stanga jos
+	//glVertex3f(3.5 + x, -0.4 + y[0], 0.1); // Dreapta jos
+	//glVertex3f(5.5 + x, -0.4 + y[0], 0.7); // Dreapta sus
+	//glVertex3f(5.5 + x, 0.4 + y[0], 0.7);// Stanga sus
+	glPopMatrix();
 
 }
