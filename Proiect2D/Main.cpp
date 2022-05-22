@@ -455,6 +455,7 @@ void RenderString(float x, float y, void* font, const std::string sir)
 void drawBackground() {
 	glPushMatrix();
 	float culoare_asfalt[4] = { 0.267, 0.267, 0.278 , 1.0};
+	float culoare_negru[4] = { 0.0, 0.0, 0.0, 0.0};
 	//glColor3f(0.267, 0.267, 0.278);
 	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, culoare_asfalt);
 	// Banda Stanga
@@ -464,6 +465,7 @@ void drawBackground() {
 	glVertex3i(200, 5.5, 0); // Dreapta sus
 	glVertex3i(200, 14, 0);// Stanga sus
 	glEnd();
+	
 
 	// Banda Mijloc
 	glBegin(GL_QUADS);
@@ -481,13 +483,15 @@ void drawBackground() {
 	glVertex3i(200, -5.5, 0);// Stanga sus
 	glEnd();
 
+	//glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, culoare_negru);
+
 	float culoare_iarba[4] = { 0.0, 0.604, 0.09 , 1.0 };
 	
 	//glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, culoare_iarba);
 	//glColor3f(0.0, 0.604, 0.09);
 	// Iarba Stanga
 	glPushMatrix();
-	glTranslated(0, 21, 0.2);
+	glTranslated(0, 21, 0.0);
 	glRotated(90, 1, 0, 0);
 	glRotated(90, 0, 1, 0);
 
@@ -496,7 +500,7 @@ void drawBackground() {
 
 	// Iarba Dreapta
 	glPushMatrix();
-	glTranslated(0, -21, 0.2);
+	glTranslated(0, -21, 0.0);
 	glRotated(90, 1, 0, 0);
 	glRotated(90, 0, 1, 0);
 
@@ -513,6 +517,7 @@ void drawBackground() {
 			glVertex3f(5 + i * 10, 4.5 - line * 10, 0.1); // Dreapta sus
 			glVertex3f(5 + i * 10, 5.5 - line * 10, 0.1);// Stanga sus
 			glEnd();
+			//glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, culoare_negru);
 		}
 	}
 
@@ -524,11 +529,11 @@ void drawScene(void)
 {
 	
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClearColor(0.26f, 0.57f, 0.98f, 0.8f);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHTING);
 	
-	GLfloat lightpos[] = { -20, 0, 1, 1.0 };
+	GLfloat lightpos[] = { -20, 0, 5, 1.0 };
 
 	glEnable(GL_LIGHT0);
 	glEnable(GL_NORMALIZE);
